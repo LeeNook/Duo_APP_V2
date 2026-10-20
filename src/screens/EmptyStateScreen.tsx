@@ -18,7 +18,7 @@ export const EmptyStateScreen: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12">
       <TopBar
         title={language === 'th' ? 'ผลการค้นหา' : 'Search Results'}
         showBack={true}
@@ -41,10 +41,12 @@ export const EmptyStateScreen: React.FC = () => {
           </div>
 
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mb-2">
-            ไม่พบรายการให้จอง
+            {language === 'th' ? 'ไม่มีรายการให้จอง' : 'No Items to Book'}
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
-            เริ่มเดี๋ยวนี้เลย เพียงแค่ลองเลือกกลุ่ม จากนั้นทดลองจองรายการที่สนใจได้เลย
+            {language === 'th'
+              ? 'เริ่มเดี๋ยวนี้เลย เพียงแค่ลองเลือกกลุ่ม จากนั้นทดลองจองรายการที่สนใจได้เลย'
+              : 'Get started now! Simply choose a category and book the item you are interested in.'}
           </p>
         </div>
 
@@ -53,22 +55,22 @@ export const EmptyStateScreen: React.FC = () => {
           <div className="flex items-center gap-2">
             <Lightbulb className="w-5 h-5 text-orange-600 dark:text-orange-400" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              คำแนะนำสำหรับนักศึกษา
+              {language === 'th' ? 'คำแนะนำสำหรับนักศึกษา' : 'Tips for Students'}
             </h3>
           </div>
 
           <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300 pl-2">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-              <span>ตรวจสอบวันและเวลาที่ต้องการ</span>
+              <span>{language === 'th' ? 'ตรวจสอบวันและเวลาที่ต้องการ' : 'Check your desired date and time'}</span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-              <span>ลองค้นหากลุ่มอื่น</span>
+              <span>{language === 'th' ? 'ลองค้นหากลุ่มอื่น' : 'Try exploring other categories'}</span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-              <span>ระบบเปิดให้จองล่วงหน้าตามกฎของแต่ละบริการ</span>
+              <span>{language === 'th' ? 'ระบบเปิดให้จองล่วงหน้าตามกฎของแต่ละบริการ' : 'Advance booking opens according to each facility policy'}</span>
             </li>
           </ul>
         </div>
@@ -81,16 +83,16 @@ export const EmptyStateScreen: React.FC = () => {
             style={{ backgroundColor: 'var(--brand-strong)' }}
           >
             <Layers className="w-5 h-5" />
-            <span>กลับไปเลือกกลุ่ม</span>
+            <span>{language === 'th' ? 'กลับไปเลือกกลุ่ม' : 'Back to Categories'}</span>
           </button>
 
           <div className="text-center">
             <button
-              onClick={() => alert('ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้')}
+              onClick={() => alert(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
               className="text-xs font-bold underline flex items-center justify-center gap-1 mx-auto cursor-pointer"
               style={{ color: 'var(--brand-strong)' }}
             >
-              <span>ดูตารางเวลาทั้งหมดของสัปดาห์นี้</span>
+              <span>{language === 'th' ? 'ดูตารางเวลาทั้งหมดของสัปดาห์นี้' : 'View all operating hours for this week'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -102,11 +104,11 @@ export const EmptyStateScreen: React.FC = () => {
             <div className="flex items-center gap-1.5">
               <CheckCircle className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                ห้องว่างที่แนะนำ
+                {language === 'th' ? 'ห้องว่างที่แนะนำ' : 'Recommended Rooms'}
               </h4>
             </div>
             <span className="text-[11px] text-slate-400 dark:text-slate-500">
-              อัปเดตแบบเรียลไทม์
+              {language === 'th' ? 'อัปเดตแบบเรียลไทม์' : 'Live Updated'}
             </span>
           </div>
 
@@ -125,7 +127,7 @@ export const EmptyStateScreen: React.FC = () => {
                 <div className="absolute top-2 left-2">
                   <span className="badge-on-colored px-2 py-0.5 rounded-full text-[10px] font-bold text-emerald-700 flex items-center gap-1 shadow-xs">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span>ว่าง</span>
+                    <span>{language === 'th' ? 'ว่าง' : 'Available'}</span>
                   </span>
                 </div>
               </div>
@@ -136,7 +138,7 @@ export const EmptyStateScreen: React.FC = () => {
                 </h5>
                 <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                   <Users className="w-3 h-3" />
-                  <span>4-6 ที่นั่ง</span>
+                  <span>{language === 'th' ? '4-6 ที่นั่ง' : '4-6 Seats'}</span>
                 </div>
               </div>
             </div>
@@ -155,7 +157,7 @@ export const EmptyStateScreen: React.FC = () => {
                 <div className="absolute top-2 left-2">
                   <span className="badge-on-colored px-2 py-0.5 rounded-full text-[10px] font-bold text-emerald-700 flex items-center gap-1 shadow-xs">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                    <span>ว่าง</span>
+                    <span>{language === 'th' ? 'ว่าง' : 'Available'}</span>
                   </span>
                 </div>
               </div>
@@ -166,7 +168,7 @@ export const EmptyStateScreen: React.FC = () => {
                 </h5>
                 <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                   <Users className="w-3 h-3" />
-                  <span>8-12 ที่นั่ง</span>
+                  <span>{language === 'th' ? '8-12 ที่นั่ง' : '8-12 Seats'}</span>
                 </div>
               </div>
             </div>

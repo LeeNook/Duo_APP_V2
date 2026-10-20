@@ -8,6 +8,7 @@ export const CancelModal: React.FC = () => {
     cancellingTicket,
     closeCancelModal,
     confirmCancelBooking,
+    language,
   } = useApp();
 
   if (!isCancelModalOpen || !cancellingTicket) return null;
@@ -23,17 +24,21 @@ export const CancelModal: React.FC = () => {
         {/* Title & Description */}
         <div className="space-y-2">
           <h3 className="text-lg font-black text-slate-900 dark:text-white leading-snug">
-            ต้องการยกเลิกการจอง {cancellingTicket.locationCode} หรือไม่?
+            {language === 'th'
+              ? `ต้องการยกเลิกการจอง ${cancellingTicket.locationCode} หรือไม่?`
+              : `Cancel reservation for ${cancellingTicket.locationCode}?`}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed px-2">
-            ยกเลิกก่อนเวลาใช้งานเกิน 30 นาที จะคืนสิทธิ์โควต้าให้คุณทันที 1 ครั้ง
+            {language === 'th'
+              ? 'ยกเลิกก่อนเวลาใช้งานเกิน 30 นาที จะคืนสิทธิ์โควต้าให้คุณทันที 1 ครั้ง'
+              : 'Cancelling 30+ minutes before start time restores 1 usage quota immediately.'}
           </p>
         </div>
 
         {/* Green Refund Strip */}
         <div className="py-2.5 px-3 rounded-2xl bg-emerald-100/70 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold flex items-center justify-center gap-1.5 border border-emerald-200 dark:border-emerald-800/60">
           <PlusCircle className="w-4 h-4 text-emerald-600" />
-          <span>+1 สิทธิ์จะถูกคืนเข้าบัญชีคุณ</span>
+          <span>{language === 'th' ? '+1 สิทธิ์จะถูกคืนเข้าบัญชีคุณ' : '+1 Quota will be restored'}</span>
         </div>
 
         {/* Action Buttons */}
@@ -42,14 +47,14 @@ export const CancelModal: React.FC = () => {
             onClick={confirmCancelBooking}
             className="w-full py-3.5 px-4 rounded-2xl bg-red-600 hover:bg-red-700 active:scale-[0.99] text-white font-bold text-sm shadow-md shadow-red-600/20 transition-all cursor-pointer"
           >
-            ยืนยันยกเลิก
+            {language === 'th' ? 'ยืนยันยกเลิก' : 'Confirm Cancellation'}
           </button>
 
           <button
             onClick={closeCancelModal}
             className="w-full py-3 px-4 rounded-2xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors cursor-pointer"
           >
-            ไม่ยกเลิก (คงการจองไว้)
+            {language === 'th' ? 'ไม่ยกเลิก (คงการจองไว้)' : 'Keep Reservation'}
           </button>
         </div>
       </div>

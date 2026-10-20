@@ -7,11 +7,53 @@ import {
   NewsItem,
   LibraryOccupancy,
   PastBooking,
+  TimeSlot,
 } from '../types';
 
 // REQUIRED DATA CONSTANTS
 export const MOCK_NOW = "2026-10-25T10:30:00+07:00";
 export const DEMO_DATE = "2026-10-26";
+
+// DYNAMIC TIME SLOT PATTERNS
+export const SLOT_PATTERN_A: TimeSlot[] = [
+  { time: "09:00 - 10:00", available: false, reason: "ไม่สามารถจองได้" },
+  { time: "10:00 - 11:00", available: false, ratioLabel: "0/1" },
+  { time: "11:00 - 12:00", available: true, ratioLabel: "0/1" },
+  { time: "12:00 - 13:00", available: true, ratioLabel: "0/1" },
+  { time: "13:00 - 14:00", available: true, ratioLabel: "0/1" },
+  { time: "14:00 - 15:00", available: true, ratioLabel: "0/1" },
+  { time: "15:00 - 16:00", available: true, ratioLabel: "0/1" },
+  { time: "16:00 - 17:00", available: false, ratioLabel: "0/1" },
+  { time: "17:00 - 18:00", available: true, ratioLabel: "0/1" },
+  { time: "18:00 - 19:00", available: true, ratioLabel: "0/1" }
+];
+
+export const SLOT_PATTERN_B: TimeSlot[] = [
+  { time: "09:00 - 10:00", available: true, ratioLabel: "0/1" },
+  { time: "10:00 - 11:00", available: true, ratioLabel: "0/1" },
+  { time: "11:00 - 12:00", available: false, ratioLabel: "0/1" },
+  { time: "12:00 - 13:00", available: false, ratioLabel: "0/1" },
+  { time: "13:00 - 14:00", available: true, ratioLabel: "0/1" },
+  { time: "14:00 - 15:00", available: false, ratioLabel: "0/1" },
+  { time: "15:00 - 16:00", available: true, ratioLabel: "0/1" },
+  { time: "16:00 - 17:00", available: true, ratioLabel: "0/1" },
+  { time: "17:00 - 18:00", available: false, ratioLabel: "0/1" },
+  { time: "18:00 - 19:00", available: false, ratioLabel: "0/1" }
+];
+
+export const SLOT_PATTERN_C: TimeSlot[] = [
+  { time: "09:00 - 10:00", available: false, reason: "ไม่สามารถจองได้" },
+  { time: "10:00 - 11:00", available: false, ratioLabel: "0/1" },
+  { time: "11:00 - 12:00", available: false, ratioLabel: "0/1" },
+  { time: "12:00 - 13:00", available: true, ratioLabel: "0/1" },
+  { time: "13:00 - 14:00", available: true, ratioLabel: "0/1" },
+  { time: "14:00 - 15:00", available: true, ratioLabel: "0/1" },
+  { time: "15:00 - 16:00", available: false, ratioLabel: "0/1" },
+  { time: "16:00 - 17:00", available: false, ratioLabel: "0/1" },
+  { time: "17:00 - 18:00", available: true, ratioLabel: "0/1" },
+  { time: "18:00 - 19:00", available: true, ratioLabel: "0/1" }
+];
+
 export const KLLC = [
   "09:00-16:00",
   "09:00-19:00",

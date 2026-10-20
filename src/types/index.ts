@@ -69,6 +69,7 @@ export interface TimeSlot {
   available: boolean;
   reason?: string;
   ratioLabel?: string;
+  label?: string;
 }
 
 export interface FacilityItem {
@@ -79,15 +80,21 @@ export interface FacilityItem {
   category: string;
   subCategory?: string;
   locationTh: string;
+  locationEn?: string;
   buildingTh: string;
+  buildingEn?: string;
   floorTh?: string;
+  floorEn?: string;
   imageUrl: string;
   additionalImages?: string[];
   capacityLabelTh: string;
+  capacityLabelEn?: string;
   isAvailable: boolean;
   statusLabelTh?: string;
+  statusLabelEn?: string;
   nextAvailableTime?: string;
   durationLimitTh: string;
+  durationLimitEn?: string;
   tagsTh?: string[];
   featuredNoticeTh?: string;
   specsTh?: string[];

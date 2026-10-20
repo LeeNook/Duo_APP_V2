@@ -56,9 +56,9 @@ export const SuccessESlipScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 lg:pb-12 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 lg:pb-12">
       <TopBar
-        title="Success E Slip"
+        title={language === 'th' ? 'บัตรยืนยันการจอง' : 'Success E-Slip'}
         showBack={true}
         onBack={() => setCurrentRoute('booking')}
       />
@@ -71,10 +71,12 @@ export const SuccessESlipScreen: React.FC = () => {
           </div>
 
           <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-            จองสำเร็จเรียบร้อย!
+            {language === 'th' ? 'จองสำเร็จเรียบร้อย!' : 'Booking Confirmed!'}
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-xs">
-            ข้อมูลการจองและรหัสเข้าใช้งานถูกส่งไปยังอีเมลและปฏิทินแล้ว
+            {language === 'th'
+              ? 'ข้อมูลการจองและรหัสเข้าใช้งานถูกส่งไปยังอีเมลและปฏิทินแล้ว'
+              : 'Booking details and unlock code have been sent to your email and calendar.'}
           </p>
         </div>
 
@@ -93,7 +95,7 @@ export const SuccessESlipScreen: React.FC = () => {
               </span>
               <span className="badge-on-colored px-2.5 py-0.5 rounded-full text-[10px] font-bold text-emerald-700 flex items-center gap-1 shadow-xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span>ยืนยันแล้ว</span>
+                <span>{language === 'th' ? 'ยืนยันแล้ว' : 'Confirmed'}</span>
               </span>
             </div>
 
@@ -120,7 +122,7 @@ export const SuccessESlipScreen: React.FC = () => {
             <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-slate-800/80 border border-blue-100/60 dark:border-slate-700 text-center space-y-2.5">
               <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300">
                 <Lock className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-                <span>รหัสปลดล็อกประตู / เครื่อง</span>
+                <span>{language === 'th' ? 'รหัสปลดล็อกประตู / เครื่อง' : 'Door / Equipment Access PIN'}</span>
               </div>
 
               {/* Masked PIN Box */}
@@ -145,12 +147,12 @@ export const SuccessESlipScreen: React.FC = () => {
                   {showPin ? (
                     <>
                       <EyeOff className="w-3.5 h-3.5" />
-                      <span>ซ่อนรหัส</span>
+                      <span>{language === 'th' ? 'ซ่อนรหัส' : 'Hide PIN'}</span>
                     </>
                   ) : (
                     <>
                       <Eye className="w-3.5 h-3.5" />
-                      <span>แสดงรหัส</span>
+                      <span>{language === 'th' ? 'แสดงรหัส' : 'Show PIN'}</span>
                     </>
                   )}
                 </button>
@@ -162,19 +164,21 @@ export const SuccessESlipScreen: React.FC = () => {
                   {copied ? (
                     <>
                       <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>คัดลอกแล้ว</span>
+                      <span>{language === 'th' ? 'คัดลอกแล้ว' : 'Copied'}</span>
                     </>
                   ) : (
                     <>
                       <Copy className="w-3.5 h-3.5" />
-                      <span>คัดลอกรหัส</span>
+                      <span>{language === 'th' ? 'คัดลอกรหัส' : 'Copy PIN'}</span>
                     </>
                   )}
                 </button>
               </div>
 
               <p className="text-[10px] text-slate-400">
-                * รหัสนี้ใช้ได้เฉพาะช่วงเวลา {ticket.timeRangeTh}
+                {language === 'th'
+                  ? `* รหัสนี้ใช้ได้เฉพาะช่วงเวลา ${ticket.timeRangeTh}`
+                  : `* This PIN is valid only during ${ticket.timeRangeTh}`}
               </p>
             </div>
 
@@ -183,7 +187,7 @@ export const SuccessESlipScreen: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                   <User className="w-4 h-4" />
-                  <span>ผู้ขอใช้</span>
+                  <span>{language === 'th' ? 'ผู้ขอใช้' : 'Applicant'}</span>
                 </div>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
                   {user.name} {user.studentId}
@@ -193,7 +197,7 @@ export const SuccessESlipScreen: React.FC = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                   <Clock className="w-4 h-4" />
-                  <span>วันและเวลา</span>
+                  <span>{language === 'th' ? 'วันและเวลา' : 'Date & Time'}</span>
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-slate-800 dark:text-slate-200">
@@ -209,7 +213,7 @@ export const SuccessESlipScreen: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                     <Cpu className="w-4 h-4" />
-                    <span>อุปกรณ์</span>
+                    <span>{language === 'th' ? 'อุปกรณ์' : 'Equipment'}</span>
                   </div>
                   <span className="font-bold text-slate-800 dark:text-slate-200">
                     {ticket.equipmentTh}
@@ -223,7 +227,11 @@ export const SuccessESlipScreen: React.FC = () => {
               <div className="w-6 h-6 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-3.5 h-3.5" />
               </div>
-              <span>มาช้าเกิน {ticket.lateMin} นาที ตัดสิทธิ์โดยอัตโนมัติ</span>
+              <span>
+                {language === 'th'
+                  ? `มาช้าเกิน ${ticket.lateMin} นาที ตัดสิทธิ์โดยอัตโนมัติ`
+                  : `Late arrival beyond ${ticket.lateMin} minutes forfeits reservation automatically.`}
+              </span>
             </div>
           </div>
         </div>
@@ -236,7 +244,7 @@ export const SuccessESlipScreen: React.FC = () => {
             style={{ backgroundColor: 'var(--brand-strong)' }}
           >
             <Calendar className="w-4 h-4" />
-            <span>เพิ่มลงปฏิทิน (Google / Apple Calendar)</span>
+            <span>{language === 'th' ? 'เพิ่มลงปฏิทิน (Google / Apple Calendar)' : 'Add to Calendar (Google / Apple)'}</span>
           </button>
 
           <button
@@ -244,7 +252,7 @@ export const SuccessESlipScreen: React.FC = () => {
             className="w-full py-3.5 px-6 rounded-2xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 text-blue-700 dark:text-blue-300 font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer border border-blue-100 dark:border-slate-700"
           >
             <History className="w-4 h-4" />
-            <span>ดูประวัติการจอง</span>
+            <span>{language === 'th' ? 'ดูประวัติการจอง' : 'View Booking History'}</span>
           </button>
 
           <div className="text-center pt-1">
@@ -253,7 +261,7 @@ export const SuccessESlipScreen: React.FC = () => {
               className="text-xs font-bold hover:underline cursor-pointer"
               style={{ color: 'var(--brand-strong)' }}
             >
-              กลับสู่หน้าหลัก
+              {language === 'th' ? 'กลับสู่หน้าหลัก' : 'Return to Home'}
             </button>
           </div>
         </div>

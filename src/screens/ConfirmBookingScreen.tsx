@@ -89,9 +89,9 @@ export const ConfirmBookingScreen: React.FC = () => {
   const lateMin = facility.lateMin ?? 15;
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-40 lg:pb-28 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-40 lg:pb-28">
       <TopBar
-        title="แบบฟอร์มยืนยันการจอง"
+        title={language === 'th' ? 'แบบฟอร์มยืนยันการจอง' : 'Booking Confirmation'}
         showBack={true}
         onBack={() => navigateToFacility(facility.id)}
       />
@@ -104,10 +104,10 @@ export const ConfirmBookingScreen: React.FC = () => {
               className="font-bold tracking-tight"
               style={{ color: 'var(--brand-strong)' }}
             >
-              ขั้นตอน 2 จาก 3
+              {language === 'th' ? 'ขั้นตอน 2 จาก 3' : 'Step 2 of 3'}
             </span>
             <span className="text-slate-400 dark:text-slate-500">
-              ตรวจสอบข้อมูลก่อนบันทึก
+              {language === 'th' ? 'ตรวจสอบข้อมูลก่อนบันทึก' : 'Verify details before confirmation'}
             </span>
           </div>
           {/* Progress bar */}
@@ -123,7 +123,7 @@ export const ConfirmBookingScreen: React.FC = () => {
         {facility.noEquipment && (
           <div className="p-3.5 rounded-2xl bg-orange-100/90 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800 flex items-center gap-2.5 text-xs text-orange-950 dark:text-orange-200 font-medium shadow-2xs">
             <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง</span>
+            <span>{language === 'th' ? 'ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง' : 'Sports Center does not provide equipment loan. Please bring your own.'}</span>
           </div>
         )}
 
@@ -139,13 +139,13 @@ export const ConfirmBookingScreen: React.FC = () => {
             <div className="absolute top-3 left-3">
               <span className="badge-on-colored px-2.5 py-1 rounded-full text-xs font-bold text-emerald-700 flex items-center gap-1.5 shadow-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                <span>{facility.statusLabelTh}</span>
+                <span>{language === 'th' ? facility.statusLabelTh : (facility.statusLabelEn || 'Available')}</span>
               </span>
             </div>
             <div className="absolute top-3 right-3">
               <span className="badge-on-colored px-2.5 py-1 rounded-full text-xs font-bold text-slate-800 flex items-center gap-1 shadow-md">
                 <Users className="w-3.5 h-3.5 text-slate-600" />
-                <span>{facility.capacityLabelTh}</span>
+                <span>{language === 'th' ? facility.capacityLabelTh : (facility.capacityLabelEn || facility.capacityLabelTh)}</span>
               </span>
             </div>
           </div>
@@ -154,41 +154,41 @@ export const ConfirmBookingScreen: React.FC = () => {
           <div className="p-4 sm:p-5 space-y-3">
             <div>
               <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                {facility.nameTh}
+                {language === 'th' ? facility.nameTh : (facility.nameEn || facility.nameTh)}
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                {facility.buildingTh}
+                {language === 'th' ? facility.buildingTh : (facility.buildingEn || facility.buildingTh)}
               </p>
             </div>
 
             <div className="rounded-2xl bg-slate-50 dark:bg-slate-800/60 p-3 space-y-2 text-xs border border-slate-100 dark:border-slate-700/60">
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 dark:text-slate-400">รายการ</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'รายการ' : 'Item'}</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
                   {facility.category === 'sports'
-                    ? 'ประเภท: Hard Court'
+                    ? (language === 'th' ? 'ประเภท: Hard Court' : 'Type: Hard Court')
                     : facility.category === 'seminar-room'
-                    ? 'ห้องค้นคว้ากลุ่ม'
-                    : facility.nameTh}
+                    ? (language === 'th' ? 'ห้องค้นคว้ากลุ่ม' : 'Study Room')
+                    : (language === 'th' ? facility.nameTh : (facility.nameEn || facility.nameTh))}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 dark:text-slate-400">สถานที่</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'สถานที่' : 'Location'}</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
-                  {facility.floorTh}
+                  {language === 'th' ? facility.floorTh : (facility.floorEn || facility.floorTh)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between pt-1 border-t border-slate-200/60 dark:border-slate-700">
-                <span className="text-slate-400 dark:text-slate-400">วันที่</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'วันที่' : 'Date'}</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
                   {draftBooking.dateTh}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 dark:text-slate-400">เวลา</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'เวลา' : 'Time'}</span>
                 <span
                   className="font-black text-sm"
                   style={{ color: 'var(--brand-strong)' }}
@@ -198,16 +198,18 @@ export const ConfirmBookingScreen: React.FC = () => {
               </div>
 
               <div className="flex items-center justify-between pt-1 border-t border-slate-200/60 dark:border-slate-700">
-                <span className="text-slate-400 dark:text-slate-400">ผู้ขอใช้</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'ผู้ขอใช้' : 'Applicant'}</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
-                  {user.name} รหัส {user.studentId}
+                  {user.name} {language === 'th' ? `รหัส ${user.studentId}` : `ID ${user.studentId}`}
                 </span>
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-slate-400 dark:text-slate-400">โควต้าที่ถูกใช้</span>
+                <span className="text-slate-400 dark:text-slate-400">{language === 'th' ? 'โควต้าที่ถูกใช้' : 'Quota Deducted'}</span>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
-                  1 ครั้ง (เหลือ {Math.max(0, quota.remainingToday - 1)} ครั้ง/วัน)
+                  {language === 'th'
+                    ? `1 ครั้ง (เหลือ ${Math.max(0, quota.remainingToday - 1)} ครั้ง/วัน)`
+                    : `1 booking (${Math.max(0, quota.remainingToday - 1)} left today)`}
                 </span>
               </div>
             </div>
@@ -220,11 +222,11 @@ export const ConfirmBookingScreen: React.FC = () => {
             <div className="flex items-center gap-2">
               <PenTool className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                หมายเหตุเพิ่มเติมถึงเจ้าหน้าที่ (ถ้ามี)
+                {language === 'th' ? 'หมายเหตุเพิ่มเติมถึงเจ้าหน้าที่ (ถ้ามี)' : 'Additional Notes to Staff (Optional)'}
               </h4>
             </div>
             <span className="text-xs text-slate-400 dark:text-slate-500">
-              อุปกรณ์เสริม
+              {language === 'th' ? 'อุปกรณ์เสริม' : 'Accessories'}
             </span>
           </div>
 
@@ -258,7 +260,11 @@ export const ConfirmBookingScreen: React.FC = () => {
               value={notes}
               maxLength={100}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="ระบุความต้องการเพิ่มเติม เช่น ต้องการโปรเจกเตอร์ความละเอียดสูง หรือการจัดโต๊ะพิเศษ..."
+              placeholder={
+                language === 'th'
+                  ? 'ระบุความต้องการเพิ่มเติม เช่น ต้องการโปรเจกเตอร์ความละเอียดสูง หรือการจัดโต๊ะพิเศษ...'
+                  : 'Specify additional requests, e.g., projector resolution, custom desk setup...'
+              }
               className="w-full h-24 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand resize-none"
             />
             <div className="flex justify-end text-[10px] text-slate-400 mt-1">
@@ -274,17 +280,17 @@ export const ConfirmBookingScreen: React.FC = () => {
           </div>
           <div className="space-y-0.5">
             <h5 className="text-xs font-bold text-red-900 dark:text-red-200">
-              ข้อกำหนดสำคัญ
+              {language === 'th' ? 'ข้อกำหนดสำคัญ' : 'Important Policy'}
             </h5>
             <p className="text-xs font-bold text-red-700 dark:text-red-300">
-              มาช้าเกิน {lateMin} นาที ตัดสิทธิ์โดยอัตโนมัติ
+              {language === 'th' ? `มาช้าเกิน ${lateMin} นาที ตัดสิทธิ์โดยอัตโนมัติ` : `Late by >${lateMin} mins forfeits booking automatically`}
             </p>
             <p className="text-[11px] text-red-600/80 dark:text-red-400">
               {facility.category === 'sports'
-                ? 'ต้องแสดงบัตรนักศึกษาทุกครั้งเมื่อเข้าใช้สนาม'
+                ? (language === 'th' ? 'ต้องแสดงบัตรนักศึกษาทุกครั้งเมื่อเข้าใช้สนาม' : 'Student ID must be presented upon entry')
                 : facility.category === 'relax'
-                ? 'กรุณามาถึงจุดบริการก่อนเวลาอย่างน้อย 3 นาที เพื่อรับการเช็กอินเข้าใช้งาน'
-                : 'ระบบจะปล่อยสิทธิ์ให้คิวถัดไปและบันทึกประวัติการไม่เข้าใช้งาน'}
+                ? (language === 'th' ? 'กรุณามาถึงจุดบริการก่อนเวลาอย่างน้อย 3 นาที เพื่อรับการเช็กอินเข้าใช้งาน' : 'Please arrive 3 minutes early for check-in')
+                : (language === 'th' ? 'ระบบจะปล่อยสิทธิ์ให้คิวถัดไปและบันทึกประวัติการไม่เข้าใช้งาน' : 'System will release slot to next in queue and record no-show')}
             </p>
           </div>
         </div>
@@ -298,7 +304,7 @@ export const ConfirmBookingScreen: React.FC = () => {
             className="w-full py-4 px-6 rounded-2xl text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-brand/25 transition-all hover:opacity-95 active:scale-[0.99] cursor-pointer"
             style={{ backgroundColor: 'var(--brand-strong)' }}
           >
-            <span>ยืนยันการจอง</span>
+            <span>{language === 'th' ? 'ยืนยันการจอง' : 'Confirm Booking'}</span>
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
 
@@ -307,7 +313,7 @@ export const ConfirmBookingScreen: React.FC = () => {
             className="w-full py-2.5 text-center text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Clock className="w-3.5 h-3.5" />
-            <span>แก้ไขเวลา</span>
+            <span>{language === 'th' ? 'แก้ไขเวลา' : 'Change Time'}</span>
           </button>
         </div>
       </div>

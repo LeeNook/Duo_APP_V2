@@ -3,28 +3,34 @@ import { Star, X, CheckCircle, MessageSquareQuote, Calendar, Clock, Building } f
 import { useApp } from '../../context/AppContext';
 
 export const ViewReviewModal: React.FC = () => {
-  const { viewingReviewBooking, isViewReviewOpen, closeViewReview } = useApp();
+  const { viewingReviewBooking, isViewReviewOpen, closeViewReview, language } = useApp();
 
   if (!isViewReviewOpen || !viewingReviewBooking) return null;
 
   const stars = viewingReviewBooking.ratingStars || 5;
   const chips = viewingReviewBooking.reviewChips && viewingReviewBooking.reviewChips.length > 0
     ? viewingReviewBooking.reviewChips
-    : ['สะอาด', 'อุปกรณ์พร้อมใช้', 'สะดวกสบาย'];
-  const comment = viewingReviewBooking.reviewComment || 'การใช้งานราบรื่นดีมาก อุปกรณ์พร้อมใช้ บรรยากาศเงียบสงบเหมาะแก่การอ่านหนังสือ';
+    : [
+        language === 'th' ? 'สะอาด' : 'Clean',
+        language === 'th' ? 'อุปกรณ์พร้อมใช้' : 'Ready Equipment',
+        language === 'th' ? 'สะดวกสบาย' : 'Comfortable',
+      ];
+  const comment = viewingReviewBooking.reviewComment || (language === 'th'
+    ? 'การใช้งานราบรื่นดีมาก อุปกรณ์พร้อมใช้ บรรยากาศเงียบสงบเหมาะแก่การอ่านหนังสือ'
+    : 'Everything went very smoothly. The equipment was ready and atmosphere quiet.');
 
   const getStarLabel = (s: number) => {
     switch (s) {
       case 5:
-        return '5.0 / 5.0 • ยอดเยี่ยมมาก';
+        return language === 'th' ? '5.0 / 5.0 • ยอดเยี่ยมมาก' : '5.0 / 5.0 • Excellent';
       case 4:
-        return '4.0 / 5.0 • ประทับใจมาก';
+        return language === 'th' ? '4.0 / 5.0 • ประทับใจมาก' : '4.0 / 5.0 • Very Good';
       case 3:
-        return '3.0 / 5.0 • พอใช้ได้';
+        return language === 'th' ? '3.0 / 5.0 • พอใช้ได้' : '3.0 / 5.0 • Average';
       case 2:
-        return '2.0 / 5.0 • ควรปรับปรุง';
+        return language === 'th' ? '2.0 / 5.0 • ควรปรับปรุง' : '2.0 / 5.0 • Needs Improvement';
       default:
-        return '1.0 / 5.0 • ปรับปรุงด่วน';
+        return language === 'th' ? '1.0 / 5.0 • ปรับปรุงด่วน' : '1.0 / 5.0 • Poor';
     }
   };
 
@@ -44,10 +50,10 @@ export const ViewReviewModal: React.FC = () => {
             </div>
             <div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                การประเมินและการรีวิวของคุณ
+                {language === 'th' ? 'การประเมินและการรีวิวของคุณ' : 'Your Rating & Review'}
               </h3>
               <p className="text-[11px] text-slate-400 dark:text-slate-500">
-                ประวัติความคิดเห็นที่บันทึกไว้ในระบบ (Read-Only)
+                {language === 'th' ? 'ประวัติความคิดเห็นที่บันทึกไว้ในระบบ (Read-Only)' : 'Saved review history in system (Read-Only)'}
               </p>
             </div>
           </div>
@@ -55,7 +61,7 @@ export const ViewReviewModal: React.FC = () => {
           <button
             onClick={closeViewReview}
             className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-            aria-label="ปิด"
+            aria-label={language === 'th' ? 'ปิด' : 'Close'}
           >
             <X className="w-5 h-5" />
           </button>
@@ -104,7 +110,7 @@ export const ViewReviewModal: React.FC = () => {
         {chips.length > 0 && (
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
-              จุดเด่นที่ประทับใจ
+              {language === 'th' ? 'จุดเด่นที่ประทับใจ' : 'Highlights'}
             </label>
             <div className="flex flex-wrap gap-2">
               {chips.map((chip, index) => (
@@ -124,7 +130,7 @@ export const ViewReviewModal: React.FC = () => {
         <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
             <MessageSquareQuote className="w-3.5 h-3.5 text-slate-400" />
-            <span>ความคิดเห็นของคุณ</span>
+            <span>{language === 'th' ? 'ความคิดเห็นของคุณ' : 'Your Comment'}</span>
           </label>
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed italic">
             "{comment}"
@@ -137,7 +143,7 @@ export const ViewReviewModal: React.FC = () => {
             onClick={closeViewReview}
             className="w-full py-3.5 px-4 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-sm shadow-md transition-all hover:opacity-95 active:scale-[0.99] cursor-pointer"
           >
-            ปิด
+            {language === 'th' ? 'ปิด' : 'Close'}
           </button>
         </div>
       </div>

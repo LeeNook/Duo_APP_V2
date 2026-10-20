@@ -69,9 +69,9 @@ export const SettingsScreen: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-28 lg:pb-12 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-28 lg:pb-12">
       <TopBar
-        title="Settings"
+        title={language === 'th' ? 'การตั้งค่า' : 'Settings'}
         showBack={true}
         onBack={() => setCurrentRoute('home')}
       />
@@ -106,9 +106,9 @@ export const SettingsScreen: React.FC = () => {
             </div>
 
             <button
-              onClick={() => alert('แก้ไขข้อมูลโปรไฟล์')}
+              onClick={() => alert(language === 'th' ? 'แก้ไขข้อมูลโปรไฟล์' : 'Edit profile info')}
               className="w-9 h-9 rounded-2xl bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
-              title="แก้ไขโปรไฟล์"
+              title={language === 'th' ? 'แก้ไขโปรไฟล์' : 'Edit Profile'}
             >
               <Pencil className="w-4 h-4" />
             </button>
@@ -128,7 +128,7 @@ export const SettingsScreen: React.FC = () => {
           <div className="flex items-center gap-2 mb-2.5 px-1">
             <Languages className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              ภาษา / Language
+              {language === 'th' ? 'ภาษา / Language' : 'Language / ภาษา'}
             </h3>
           </div>
 
@@ -171,11 +171,11 @@ export const SettingsScreen: React.FC = () => {
             <div className="flex items-center gap-2">
               <Palette className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                สีธีมหลัก (Theme Color)
+                {language === 'th' ? 'สีธีมหลัก (Theme Color)' : 'Theme Color'}
               </h3>
             </div>
             <span className="text-xs text-slate-400 dark:text-slate-500">
-              4 ตัวเลือก
+              {language === 'th' ? '4 ตัวเลือก' : '4 Options'}
             </span>
           </div>
 
@@ -218,7 +218,7 @@ export const SettingsScreen: React.FC = () => {
           <div className="flex items-center gap-2 mb-2.5 px-1">
             <Moon className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              รูปแบบการแสดงผล (Appearance)
+              {language === 'th' ? 'รูปแบบการแสดงผล (Appearance)' : 'Appearance'}
             </h3>
           </div>
 
@@ -232,7 +232,7 @@ export const SettingsScreen: React.FC = () => {
               }`}
             >
               <Sun className="w-4 h-4 text-amber-500" />
-              <span className="text-xs">สว่าง</span>
+              <span className="text-xs">{language === 'th' ? 'สว่าง' : 'Light'}</span>
             </button>
 
             <button
@@ -244,7 +244,7 @@ export const SettingsScreen: React.FC = () => {
               }`}
             >
               <Moon className="w-4 h-4 text-indigo-400" />
-              <span className="text-xs">มืด</span>
+              <span className="text-xs">{language === 'th' ? 'มืด' : 'Dark'}</span>
             </button>
 
             <button
@@ -256,7 +256,7 @@ export const SettingsScreen: React.FC = () => {
               }`}
             >
               <Laptop className="w-4 h-4 text-blue-500" />
-              <span className="text-xs">ตามระบบ</span>
+              <span className="text-xs">{language === 'th' ? 'ตามระบบ' : 'System'}</span>
             </button>
           </div>
         </section>
@@ -266,7 +266,7 @@ export const SettingsScreen: React.FC = () => {
           <div className="flex items-center gap-2 mb-2.5 px-1">
             <Bell className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              การแจ้งเตือนและการจอง
+              {language === 'th' ? 'การแจ้งเตือนและการจอง' : 'Notifications & Booking'}
             </h3>
           </div>
 
@@ -275,10 +275,10 @@ export const SettingsScreen: React.FC = () => {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                  แจ้งเตือนก่อนเวลาจอง 15 นาที
+                  {language === 'th' ? 'แจ้งเตือนก่อนเวลาจอง 15 นาที' : 'Reminder 15 mins before booking'}
                 </h4>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                  เตือนเข้าใช้อุปกรณ์และห้องค้นคว้าล่วงหน้า
+                  {language === 'th' ? 'เตือนเข้าใช้อุปกรณ์และห้องค้นคว้าล่วงหน้า' : 'Alert for upcoming facility & study room reservations'}
                 </p>
               </div>
 
@@ -309,10 +309,10 @@ export const SettingsScreen: React.FC = () => {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                  แจ้งเตือนเมื่อมีห้องว่างที่สนใจ
+                  {language === 'th' ? 'แจ้งเตือนเมื่อมีห้องว่างที่สนใจ' : 'Vacancy alert for tracked spaces'}
                 </h4>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                  แจ้งเตือนทันทีเมื่อมีผู้ยกเลิกช่วงเวลาที่คุณติดตาม
+                  {language === 'th' ? 'แจ้งเตือนทันทีเมื่อมีผู้ยกเลิกช่วงเวลาที่คุณติดตาม' : 'Immediate notification when someone cancels a booked slot'}
                 </p>
               </div>
 
@@ -344,7 +344,7 @@ export const SettingsScreen: React.FC = () => {
           <div className="flex items-center gap-2 mb-2.5 px-1">
             <Info className="w-4 h-4 text-orange-600 dark:text-orange-400" />
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              เกี่ยวกับแอป (About)
+              {language === 'th' ? 'เกี่ยวกับแอป (About)' : 'About App'}
             </h3>
           </div>
 
@@ -359,7 +359,7 @@ export const SettingsScreen: React.FC = () => {
                     Duo_APP Prototype
                   </h4>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    เวอร์ชันทดสอบ v2.6
+                    {language === 'th' ? 'เวอร์ชันทดสอบ v2.6' : 'Prototype version v2.6'}
                   </p>
                 </div>
               </div>
@@ -372,13 +372,13 @@ export const SettingsScreen: React.FC = () => {
             <div className="border-t border-slate-100 dark:border-slate-800" />
 
             <button
-              onClick={() => alert('นโยบายความเป็นส่วนตัว KMITL Academic Data')}
+              onClick={() => alert(language === 'th' ? 'นโยบายความเป็นส่วนตัว KMITL Academic Data' : 'KMITL Academic Privacy Policy')}
               className="w-full flex items-center justify-between text-left cursor-pointer group"
             >
               <div className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300">
                 <Shield className="w-4 h-4 text-slate-500" />
                 <span className="font-semibold group-hover:underline">
-                  นโยบายความเป็นส่วนตัว
+                  {language === 'th' ? 'นโยบายความเป็นส่วนตัว' : 'Privacy Policy'}
                 </span>
               </div>
               <ChevronRight className="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform" />

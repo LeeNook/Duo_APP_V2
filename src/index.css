@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  overflow-y: scroll;
+}
 
 @layer base {
   :root {
@@ -47,9 +52,16 @@
     --brand-glow: rgba(124, 58, 237, 0.25);
   }
 
-  /* Dark mode support */
+  /* Dark mode support and accessibility contrast */
   .dark {
     color-scheme: dark;
+  }
+
+  html.dark,
+  html.dark body {
+    color-scheme: dark;
+    background-color: #020617;
+    color: #F8FAFC;
   }
 }
 

@@ -13,7 +13,7 @@ export const SplashScreen: React.FC = () => {
   const { setCurrentRoute } = useApp();
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-between p-6 bg-gradient-to-b from-orange-50/40 via-slate-50 to-orange-50/20 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 transition-colors">
+    <div className="min-h-screen w-full flex flex-col items-center justify-between p-6 bg-gradient-to-b from-orange-50/40 via-slate-50 to-orange-50/20 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Top Badge */}
       <div className="pt-4">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-100/70 dark:bg-slate-800/80 border border-orange-200/50 dark:border-slate-700/60 shadow-xs">

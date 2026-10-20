@@ -30,9 +30,9 @@ export const BottomNav: React.FC = () => {
             {/* 1. หน้าหลัก */}
             <button
               onClick={() => setCurrentRoute('home')}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer ${
                 currentRoute === 'home'
-                  ? 'text-brand font-semibold scale-105'
+                  ? 'text-brand scale-105'
                   : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
               }`}
               style={{
@@ -48,9 +48,9 @@ export const BottomNav: React.FC = () => {
             {/* 2. อุปกรณ์ */}
             <button
               onClick={() => navigateToCategory('seminar-room')}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer ${
                 currentRoute === 'category' || currentRoute === 'facility'
-                  ? 'text-brand font-semibold scale-105'
+                  ? 'text-brand scale-105'
                   : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
               }`}
               style={{
@@ -69,9 +69,9 @@ export const BottomNav: React.FC = () => {
             {/* 3. การจองของฉัน */}
             <button
               onClick={navigateToHistory}
-              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer ${
+              className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer ${
                 currentRoute === 'history' || currentRoute === 'booking'
-                  ? 'text-brand font-semibold scale-105'
+                  ? 'text-brand scale-105'
                   : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'
               }`}
               style={{
@@ -90,7 +90,7 @@ export const BottomNav: React.FC = () => {
             {/* 4. โปรไฟล์ */}
             <button
               onClick={() => setCurrentRoute('settings')}
-              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             >
               <User className="w-5 h-5 mb-0.5" />
               <span className="text-[11px] leading-tight">
@@ -103,7 +103,7 @@ export const BottomNav: React.FC = () => {
             {/* Settings bottom nav variant */}
             <button
               onClick={() => setCurrentRoute('booking')}
-              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             >
               <CalendarDays className="w-5 h-5 mb-0.5" />
               <span className="text-[11px] leading-tight">
@@ -113,7 +113,7 @@ export const BottomNav: React.FC = () => {
 
             <button
               onClick={() => navigateToCategory('computer')}
-              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             >
               <Archive className="w-5 h-5 mb-0.5" />
               <span className="text-[11px] leading-tight">
@@ -123,7 +123,7 @@ export const BottomNav: React.FC = () => {
 
             <button
               onClick={navigateToHistory}
-              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
+              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             >
               <History className="w-5 h-5 mb-0.5" />
               <span className="text-[11px] leading-tight">
@@ -133,7 +133,7 @@ export const BottomNav: React.FC = () => {
 
             <button
               onClick={() => setCurrentRoute('settings')}
-              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all cursor-pointer text-brand font-semibold scale-105"
+              className="flex flex-col items-center justify-center py-1 px-3 rounded-xl font-medium transition-all cursor-pointer text-brand scale-105"
               style={{ color: 'var(--brand)' }}
             >
               <User className="w-5 h-5 mb-0.5" />

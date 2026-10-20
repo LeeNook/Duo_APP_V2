@@ -57,7 +57,7 @@ export const BookingHubScreen: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12">
       <TopBar
         title={language === 'th' ? 'การยืม/จอง' : 'Booking Hub'}
         showBack={true}
@@ -82,7 +82,7 @@ export const BookingHubScreen: React.FC = () => {
             <div className="flex items-center justify-between mb-3">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-semibold text-white">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>สิทธิ์การใช้งานรายวัน</span>
+                <span>{language === 'th' ? 'สิทธิ์การใช้งานรายวัน' : 'Daily Quota'}</span>
               </div>
 
               <div className="px-2.5 py-0.5 rounded-full bg-white/25 text-xs font-bold text-white tracking-wider">
@@ -92,10 +92,14 @@ export const BookingHubScreen: React.FC = () => {
 
             {/* Main Title */}
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-1">
-              วันนี้จองได้อีก {quota.remainingToday} ครั้ง
+              {language === 'th'
+                ? `วันนี้จองได้อีก ${quota.remainingToday} ครั้ง`
+                : `${quota.remainingToday} bookings left today`}
             </h2>
             <p className="text-xs text-white/85 mb-4">
-              สิทธิ์ {quota.dailyTotal} ครั้ง/วัน ({quota.locationScope}) • {quota.dateLabelTh}
+              {language === 'th'
+                ? `สิทธิ์ ${quota.dailyTotal} ครั้ง/วัน (${quota.locationScope}) • ${quota.dateLabelTh}`
+                : `Quota ${quota.dailyTotal}/day (${quota.locationScope}) • ${quota.dateLabelEn}`}
             </p>
 
             {/* Progress Bar */}
@@ -115,16 +119,16 @@ export const BookingHubScreen: React.FC = () => {
           <section>
             <div className="flex items-center justify-between mb-2.5 px-1">
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" style={{ color: 'var(--brand)' }} />
+                <Clock className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  การจองที่กำลังจะถึง
+                  {language === 'th' ? 'การจองที่กำลังจะถึง' : 'Upcoming Booking'}
                 </h3>
               </div>
               <button
                 onClick={navigateToHistory}
                 className="text-xs font-semibold flex items-center gap-0.5 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 cursor-pointer"
               >
-                <span>ดูทั้งหมด</span>
+                <span>{language === 'th' ? 'ดูทั้งหมด' : 'View All'}</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -154,13 +158,13 @@ export const BookingHubScreen: React.FC = () => {
                 <div className="flex items-start justify-between">
                   <div>
                     <span className="text-[11px] font-medium text-slate-400 dark:text-slate-500">
-                      รหัสสถานที่
+                      {language === 'th' ? 'รหัสสถานที่' : 'Location Code'}
                     </span>
                     <h4 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
                       {upcomingTicket.locationCode}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                      {upcomingTicket.locationNameTh}
+                      {language === 'th' ? upcomingTicket.locationNameTh : (upcomingTicket.locationNameEn || upcomingTicket.locationNameTh)}
                     </p>
                   </div>
 
@@ -172,12 +176,12 @@ export const BookingHubScreen: React.FC = () => {
                 {/* Inner Schedule Box */}
                 <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-950/60 flex items-center justify-center text-orange-600">
+                    <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-950/60 flex items-center justify-center text-orange-600 dark:text-orange-400">
                       <Clock className="w-4 h-4" />
                     </div>
                     <div>
                       <p className="text-[10px] text-slate-400 dark:text-slate-500">
-                        วันและเวลาที่จอง
+                        {language === 'th' ? 'วันและเวลาที่จอง' : 'Reserved Date & Time'}
                       </p>
                       <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
                         {upcomingTicket.dateTh} {upcomingTicket.timeRangeTh}
@@ -208,7 +212,7 @@ export const BookingHubScreen: React.FC = () => {
                     className="font-bold hover:underline cursor-pointer"
                     style={{ color: 'var(--brand)' }}
                   >
-                    จัดการการจอง
+                    {language === 'th' ? 'จัดการการจอง' : 'Manage Booking'}
                   </button>
                 </div>
               </div>
@@ -222,15 +226,15 @@ export const BookingHubScreen: React.FC = () => {
               </div>
               <div>
                 <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                  การจองที่กำลังจะถึง
+                  {language === 'th' ? 'การจองที่กำลังจะถึง' : 'Upcoming Booking'}
                 </h4>
                 <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
-                  ยังไม่มีการจองที่กำลังจะถึง
+                  {language === 'th' ? 'ยังไม่มีการจองที่กำลังจะถึง' : 'No upcoming bookings'}
                 </p>
               </div>
             </div>
             <span className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
-              พร้อมจอง 3 ครั้ง
+              {language === 'th' ? 'พร้อมจอง 3 ครั้ง' : '3 Quota Available'}
             </span>
           </section>
         )}
@@ -249,11 +253,11 @@ export const BookingHubScreen: React.FC = () => {
                 <div className="bg-current rounded-xs" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                หมวดหมู่การจอง
+                {language === 'th' ? 'หมวดหมู่การจอง' : 'Booking Categories'}
               </h3>
             </div>
             <span className="text-xs text-slate-400 dark:text-slate-500">
-              {categories.length} หมวดหมู่
+              {categories.length} {language === 'th' ? 'หมวดหมู่' : 'Categories'}
             </span>
           </div>
 
@@ -276,10 +280,10 @@ export const BookingHubScreen: React.FC = () => {
                     </div>
 
                     <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
-                      {cat.titleTh}
+                      {language === 'th' ? cat.titleTh : (cat.titleEn || cat.titleTh)}
                     </h4>
                     <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">
-                      {cat.descTh}
+                      {language === 'th' ? cat.descTh : (cat.descEn || cat.descTh)}
                     </p>
                   </div>
 
@@ -292,8 +296,8 @@ export const BookingHubScreen: React.FC = () => {
                       }`}
                     >
                       {isAvailable
-                        ? `${cat.availableCount} ${cat.countUnitTh}`
-                        : cat.countUnitTh}
+                        ? `${cat.availableCount} ${language === 'th' ? cat.countUnitTh : (cat.countUnitEn || 'available')}`
+                        : (language === 'th' ? cat.countUnitTh : 'Unavailable')}
                     </span>
                     <div className="w-5 h-5 rounded-full flex items-center justify-center text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors shrink-0">
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -308,23 +312,25 @@ export const BookingHubScreen: React.FC = () => {
         {/* 4. Special Software Request Callout */}
         <section className="bg-blue-50/70 dark:bg-slate-900 rounded-3xl p-4 sm:p-5 border border-blue-100 dark:border-slate-800 flex items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
               <HelpCircle className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                ต้องการโปรแกรมเฉพาะทาง?
+                {language === 'th' ? 'ต้องการโปรแกรมเฉพาะทาง?' : 'Need Specialized Software?'}
               </h4>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
-                ติดต่อเจ้าหน้าที่ KLLC ได้ตลอดเวลา เพื่อขอรับสิทธิ์ติดตั้งซอฟต์แวร์พิเศษสำหรับการเรียนและการวิจัย
+                {language === 'th'
+                  ? 'ติดต่อเจ้าหน้าที่ KLLC ได้ตลอดเวลา เพื่อขอรับสิทธิ์ติดตั้งซอฟต์แวร์พิเศษสำหรับการเรียนและการวิจัย'
+                  : 'Contact KLLC staff anytime to request special software installation for academic and research purposes.'}
               </p>
             </div>
           </div>
 
           <button
-            onClick={() => alert('ติดต่อเจ้าหน้าที่ KLLC ผ่านระบบแชทสด')}
+            onClick={() => alert(language === 'th' ? 'ติดต่อเจ้าหน้าที่ KLLC ผ่านระบบแชทสด' : 'Contact KLLC Staff via live chat')}
             className="w-10 h-10 rounded-2xl bg-white dark:bg-slate-800 shadow-xs border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-700 dark:text-slate-200 hover:scale-105 active:scale-95 transition-all shrink-0 cursor-pointer"
-            aria-label="ติดต่อเจ้าหน้าที่"
+            aria-label={language === 'th' ? 'ติดต่อเจ้าหน้าที่' : 'Contact Staff'}
           >
             <MessageSquare className="w-5 h-5" />
           </button>

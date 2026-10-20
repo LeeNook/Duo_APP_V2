@@ -16,6 +16,7 @@ export const RatingSheet: React.FC = () => {
     isRatingSheetOpen,
     closeRatingSheet,
     submitRating,
+    language,
   } = useApp();
 
   const [stars, setStars] = useState(4);
@@ -25,18 +26,18 @@ export const RatingSheet: React.FC = () => {
   if (!isRatingSheetOpen || !ratingBooking) return null;
 
   const quickCompliments = [
-    'สะอาด',
-    'เงียบสงบ',
-    'อุปกรณ์พร้อมใช้',
-    'เจ้าหน้าที่ดี',
-    'เชื่อมต่อง่าย',
+    { th: 'สะอาด', en: 'Clean' },
+    { th: 'เงียบสงบ', en: 'Quiet' },
+    { th: 'อุปกรณ์พร้อมใช้', en: 'Ready Equipment' },
+    { th: 'เจ้าหน้าที่ดี', en: 'Great Staff' },
+    { th: 'เชื่อมต่อง่าย', en: 'Easy Connectivity' },
   ];
 
-  const toggleTag = (tag: string) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((t) => t !== tag));
+  const toggleTag = (tagTh: string) => {
+    if (selectedTags.includes(tagTh)) {
+      setSelectedTags(selectedTags.filter((t) => t !== tagTh));
     } else {
-      setSelectedTags([...selectedTags, tag]);
+      setSelectedTags([...selectedTags, tagTh]);
     }
   };
 
@@ -80,10 +81,10 @@ export const RatingSheet: React.FC = () => {
         {/* Sheet Title */}
         <div className="text-center space-y-1">
           <h3 className="text-lg font-black text-slate-900 dark:text-white">
-            ให้คะแนนการใช้งาน
+            {language === 'th' ? 'ให้คะแนนการใช้งาน' : 'Rate Your Experience'}
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            ความคิดเห็นของคุณช่วยยกระดับพื้นที่การเรียนรู้ให้ดียิ่งขึ้น
+            {language === 'th' ? 'ความคิดเห็นของคุณช่วยยกระดับพื้นที่การเรียนรู้ให้ดียิ่งขึ้น' : 'Your feedback helps improve our learning spaces.'}
           </p>
         </div>
 
@@ -115,20 +116,20 @@ export const RatingSheet: React.FC = () => {
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1.5 font-bold text-slate-800 dark:text-slate-200">
               <ThumbsUp className="w-3.5 h-3.5 text-orange-600" />
-              <span>คำชมเร็ว</span>
+              <span>{language === 'th' ? 'คำชมเร็ว' : 'Quick Tags'}</span>
             </div>
             <span className="text-slate-400">
-              เลือก {selectedTags.length} รายการ
+              {language === 'th' ? `เลือก ${selectedTags.length} รายการ` : `${selectedTags.length} selected`}
             </span>
           </div>
 
           <div className="flex flex-wrap gap-2">
             {quickCompliments.map((tag) => {
-              const isSelected = selectedTags.includes(tag);
+              const isSelected = selectedTags.includes(tag.th);
               return (
                 <button
-                  key={tag}
-                  onClick={() => toggleTag(tag)}
+                  key={tag.th}
+                  onClick={() => toggleTag(tag.th)}
                   className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     isSelected
                       ? 'bg-orange-100 dark:bg-orange-950/60 text-orange-800 dark:text-orange-300 border border-orange-200'
@@ -140,7 +141,7 @@ export const RatingSheet: React.FC = () => {
                   }}
                 >
                   {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                  <span>{tag}</span>
+                  <span>{language === 'th' ? tag.th : tag.en}</span>
                 </button>
               );
             })}
@@ -151,7 +152,7 @@ export const RatingSheet: React.FC = () => {
         <div className="space-y-1.5">
           <div className="flex items-center gap-1.5 text-xs font-bold text-slate-800 dark:text-slate-200">
             <FileText className="w-3.5 h-3.5 text-slate-500" />
-            <span>ข้อเสนอแนะเพิ่มเติม</span>
+            <span>{language === 'th' ? 'ข้อเสนอแนะเพิ่มเติม' : 'Additional Feedback'}</span>
           </div>
 
           <div className="p-3 rounded-2xl bg-blue-50/50 dark:bg-slate-800/80 border border-blue-100 dark:border-slate-700 space-y-2">
@@ -159,13 +160,13 @@ export const RatingSheet: React.FC = () => {
               value={reviewText}
               maxLength={300}
               onChange={(e) => setReviewText(e.target.value)}
-              placeholder="ระบุข้อเสนอแนะเพิ่มเติมเพื่อพัฒนาการบริการ..."
+              placeholder={language === 'th' ? 'ระบุข้อเสนอแนะเพิ่มเติมเพื่อพัฒนาการบริการ...' : 'Share your experience or suggestions...'}
               className="w-full h-20 bg-transparent text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-hidden resize-none"
             />
             <div className="flex items-center justify-between pt-1 border-t border-slate-200/50 dark:border-slate-700 text-[10px] text-slate-400">
               <span className="flex items-center gap-1">
                 <Lock className="w-3 h-3 text-emerald-600" />
-                <span>รีวิวแบบไม่เปิดเผยตัวตน</span>
+                <span>{language === 'th' ? 'รีวิวแบบไม่เปิดเผยตัวตน' : 'Anonymous review'}</span>
               </span>
               <span>{reviewText.length}/300</span>
             </div>
@@ -180,14 +181,14 @@ export const RatingSheet: React.FC = () => {
             style={{ backgroundColor: 'var(--brand-strong)' }}
           >
             <Send className="w-4 h-4" />
-            <span>ส่งรีวิว</span>
+            <span>{language === 'th' ? 'ส่งรีวิว' : 'Submit Review'}</span>
           </button>
 
           <button
             onClick={closeRatingSheet}
             className="w-full py-2.5 text-xs font-semibold text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 text-center cursor-pointer"
           >
-            ข้ามไปก่อน (ไม่รีวิว)
+            {language === 'th' ? 'ข้ามไปก่อน (ไม่รีวิว)' : 'Skip for now'}
           </button>
         </div>
       </div>

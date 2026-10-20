@@ -106,7 +106,7 @@ export const CategoryListScreen: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12 transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-24 lg:pb-12">
       <TopBar
         title={language === 'th' ? 'อุปกรณ์' : 'Equipment'}
         showBack={true}
@@ -130,16 +130,16 @@ export const CategoryListScreen: React.FC = () => {
                     setSelectedSubCat('all');
                   }
                 }}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer border ${
                   isActive
-                    ? 'text-white shadow-sm'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-800'
+                    ? 'text-white shadow-sm border-transparent'
+                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200/80 dark:border-slate-800'
                 }`}
                 style={{
                   backgroundColor: isActive ? 'var(--brand-strong)' : undefined,
                 }}
               >
-                {cat.titleTh}
+                {language === 'th' ? cat.titleTh : (cat.titleEn || cat.titleTh)}
               </button>
             );
           })}
@@ -149,14 +149,14 @@ export const CategoryListScreen: React.FC = () => {
         {selectedCategoryId === 'sports' && (
           <div className="p-3.5 rounded-2xl bg-orange-100/80 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/60 flex items-center gap-2.5 text-xs text-orange-950 dark:text-orange-200 font-medium">
             <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง</span>
+            <span>{language === 'th' ? 'ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง' : 'Sports Center does not provide equipment loan. Please bring your own.'}</span>
           </div>
         )}
 
         {selectedCategoryId === 'relax' && (
           <div className="p-3.5 rounded-2xl bg-orange-100/80 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/60 flex items-center gap-2.5 text-xs text-orange-950 dark:text-orange-200 font-medium">
             <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>มาช้าเกิน 5 นาที ตัดสิทธิ์ (เก้าอี้นวด) / 15 นาที (Cabin)</span>
+            <span>{language === 'th' ? 'มาช้าเกิน 5 นาที ตัดสิทธิ์ (เก้าอี้นวด) / 15 นาที (Cabin)' : 'Late >5 min forfeits slot (Massage Chair) / >15 min (Cabin)'}</span>
           </div>
         )}
 
@@ -178,8 +178,8 @@ export const CategoryListScreen: React.FC = () => {
                 <Calendar className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
                 <span>
                   {selectedDateFilter === '2026-10-26'
-                    ? 'จันทร์ 26 ต.ค. 2569'
-                    : 'อาทิตย์ 25 ต.ค. 2569'}
+                    ? (language === 'th' ? 'จันทร์ 26 ต.ค. 2569' : 'Mon 26 Oct 2026')
+                    : (language === 'th' ? 'อาทิตย์ 25 ต.ค. 2569' : 'Sun 25 Oct 2026')}
                 </span>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
               </button>
@@ -198,8 +198,8 @@ export const CategoryListScreen: React.FC = () => {
                 <Clock className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>
                   {selectedTimeFilter === 'afternoon'
-                    ? 'ช่วงบ่าย (13:00 - 18:00)'
-                    : 'ช่วงเช้า (09:00 - 12:00)'}
+                    ? (language === 'th' ? 'ช่วงบ่าย (13:00 - 18:00)' : 'Afternoon (13:00 - 18:00)')
+                    : (language === 'th' ? 'ช่วงเช้า (09:00 - 12:00)' : 'Morning (09:00 - 12:00)')}
                 </span>
                 <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
               </button>
@@ -207,11 +207,11 @@ export const CategoryListScreen: React.FC = () => {
 
             {/* Consistent Filter Button with Funnel Icon and In-page Action */}
             <button
-              onClick={() => showToast('ตัวเลือกตัวกรอง (Filter options)')}
+              onClick={() => showToast(language === 'th' ? 'ตัวเลือกตัวกรอง' : 'Filter options')}
               className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs cursor-pointer"
             >
               <Filter className="w-3.5 h-3.5 text-slate-500" />
-              <span>ตัวกรอง</span>
+              <span>{language === 'th' ? 'ตัวกรอง' : 'Filter'}</span>
             </button>
           </div>
         ) : (
@@ -222,11 +222,11 @@ export const CategoryListScreen: React.FC = () => {
                 <div className="flex items-center gap-1.5">
                   <span className="text-orange-600">🍂</span>
                   <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                    พื้นที่พักผ่อน (Rest & Recharge)
+                    {language === 'th' ? 'พื้นที่พักผ่อน (Rest & Recharge)' : 'Rest & Recharge'}
                   </h3>
                 </div>
                 <span className="px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-[11px] font-bold">
-                  เปิดให้บริการ
+                  {language === 'th' ? 'เปิดให้บริการ' : 'Open'}
                 </span>
               </div>
             )}
@@ -236,24 +236,24 @@ export const CategoryListScreen: React.FC = () => {
                 <>
                   <button
                     onClick={() => setSelectedSubCat('all')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'all'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
                         selectedSubCat === 'all' ? 'var(--brand-strong)' : undefined,
                     }}
                   >
-                    ทั้งหมด
+                    {language === 'th' ? 'ทั้งหมด' : 'All'}
                   </button>
                   <button
                     onClick={() => setSelectedSubCat('pc')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'pc'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
@@ -264,10 +264,10 @@ export const CategoryListScreen: React.FC = () => {
                   </button>
                   <button
                     onClick={() => setSelectedSubCat('imac')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'imac'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
@@ -281,55 +281,55 @@ export const CategoryListScreen: React.FC = () => {
                 <>
                   <button
                     onClick={() => setSelectedSubCat('all')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'all'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
                         selectedSubCat === 'all' ? 'var(--brand-strong)' : undefined,
                     }}
                   >
-                    ทั้งหมด
+                    {language === 'th' ? 'ทั้งหมด' : 'All'}
                   </button>
                   <button
                     onClick={() => setSelectedSubCat('massage')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'massage'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
                         selectedSubCat === 'massage' ? 'var(--brand-strong)' : undefined,
                     }}
                   >
-                    เก้าอี้นวด
+                    {language === 'th' ? 'เก้าอี้นวด' : 'Massage Chair'}
                   </button>
                   <button
                     onClick={() => setSelectedSubCat('cabin')}
-                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-2xl text-xs font-bold transition-all cursor-pointer border ${
                       selectedSubCat === 'cabin'
-                        ? 'text-white shadow-sm'
-                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800'
+                        ? 'text-white shadow-sm border-transparent'
+                        : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800'
                     }`}
                     style={{
                       backgroundColor:
                         selectedSubCat === 'cabin' ? 'var(--brand-strong)' : undefined,
                     }}
                   >
-                    ห้องพักผ่อน (Private Cabin)
+                    {language === 'th' ? 'ห้องพักผ่อน (Private Cabin)' : 'Private Cabin'}
                   </button>
                 </>
               ) : null}
 
               <button
-                onClick={() => showToast('ตัวเลือกตัวกรอง (Filter options)')}
+                onClick={() => showToast(language === 'th' ? 'ตัวเลือกตัวกรอง' : 'Filter options')}
                 className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs cursor-pointer"
               >
                 <Filter className="w-3.5 h-3.5 text-slate-500" />
-                <span>ตัวกรอง</span>
+                <span>{language === 'th' ? 'ตัวกรอง' : 'Filter'}</span>
               </button>
             </div>
           </div>
@@ -340,12 +340,16 @@ export const CategoryListScreen: React.FC = () => {
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span className="text-slate-800 dark:text-slate-200 font-bold">
-              พบ {availableCount} {currentCategory.countUnitTh}พร้อมใช้งาน
+              {language === 'th'
+                ? `พบ ${availableCount} ${currentCategory.countUnitTh}พร้อมใช้งาน`
+                : `${availableCount} ${currentCategory.countUnitEn || 'available'} found`}
             </span>
           </div>
 
           <span className="text-slate-400 dark:text-slate-500">
-            {isBannerStyle ? 'สำนักการเรียนรู้ (KLLC)' : 'อัปเดตล่าสุด'}
+            {isBannerStyle
+              ? (language === 'th' ? 'สำนักการเรียนรู้ (KLLC)' : 'Learning Hub (KLLC)')
+              : (language === 'th' ? 'อัปเดตล่าสุด' : 'Live Updated')}
           </span>
         </div>
 
@@ -368,10 +372,12 @@ export const CategoryListScreen: React.FC = () => {
 
               {/* CRITICAL: Explicit heading "ไม่มีรายการให้จอง" */}
               <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mb-2">
-                ไม่มีรายการให้จอง
+                {language === 'th' ? 'ไม่มีรายการให้จอง' : 'No Items to Book'}
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xs leading-relaxed">
-                เริ่มเดี๋ยวนี้เลย เพียงแค่ลองเลือกกลุ่ม จากนั้นทดลองจองรายการที่สนใจได้เลย
+                {language === 'th'
+                  ? 'เริ่มเดี๋ยวนี้เลย เพียงแค่ลองเลือกกลุ่ม จากนั้นทดลองจองรายการที่สนใจได้เลย'
+                  : 'Get started now! Simply choose a category and book the item you are interested in.'}
               </p>
             </div>
 
@@ -380,22 +386,22 @@ export const CategoryListScreen: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Lightbulb className="w-5 h-5 text-orange-600 dark:text-orange-400" />
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  คำแนะนำสำหรับนักศึกษา
+                  {language === 'th' ? 'คำแนะนำสำหรับนักศึกษา' : 'Tips for Students'}
                 </h3>
               </div>
 
               <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300 pl-2">
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                  <span>ตรวจสอบวันและเวลาที่ต้องการ</span>
+                  <span>{language === 'th' ? 'ตรวจสอบวันและเวลาที่ต้องการ' : 'Check your desired date and time'}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                  <span>ลองค้นหากลุ่มอื่น</span>
+                  <span>{language === 'th' ? 'ลองค้นหากลุ่มอื่น' : 'Try exploring other categories'}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                  <span>ระบบเปิดให้จองล่วงหน้าตามกฎของแต่ละบริการ</span>
+                  <span>{language === 'th' ? 'ระบบเปิดให้จองล่วงหน้าตามกฎของแต่ละบริการ' : 'Advance booking opens according to each facility policy'}</span>
                 </li>
               </ul>
             </div>
@@ -408,16 +414,16 @@ export const CategoryListScreen: React.FC = () => {
                 style={{ backgroundColor: 'var(--brand-strong)' }}
               >
                 <Layers className="w-5 h-5" />
-                <span>กลับไปเลือกกลุ่ม</span>
+                <span>{language === 'th' ? 'กลับไปเลือกกลุ่ม' : 'Back to Categories'}</span>
               </button>
 
               <div className="text-center">
                 <button
-                  onClick={() => alert('ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้')}
+                  onClick={() => alert(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
                   className="text-xs font-bold underline flex items-center justify-center gap-1 mx-auto cursor-pointer"
                   style={{ color: 'var(--brand-strong)' }}
                 >
-                  <span>ดูตารางเวลาทั้งหมดของสัปดาห์นี้</span>
+                  <span>{language === 'th' ? 'ดูตารางเวลาทั้งหมดของสัปดาห์นี้' : 'View all operating hours for this week'}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -429,11 +435,11 @@ export const CategoryListScreen: React.FC = () => {
                 <div className="flex items-center gap-1.5">
                   <CheckCircle className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                    ห้องว่างที่แนะนำ
+                    {language === 'th' ? 'ห้องว่างที่แนะนำ' : 'Recommended Rooms'}
                   </h4>
                 </div>
                 <span className="text-[11px] text-slate-400 dark:text-slate-500">
-                  อัปเดตแบบเรียลไทม์
+                  {language === 'th' ? 'อัปเดตแบบเรียลไทม์' : 'Live Updated'}
                 </span>
               </div>
 
@@ -452,7 +458,7 @@ export const CategoryListScreen: React.FC = () => {
                     <div className="absolute top-2 left-2">
                       <span className="badge-on-colored px-2 py-0.5 rounded-full text-[10px] font-bold text-emerald-700 flex items-center gap-1 shadow-xs">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span>ว่าง</span>
+                        <span>{language === 'th' ? 'ว่าง' : 'Available'}</span>
                       </span>
                     </div>
                   </div>
@@ -463,7 +469,7 @@ export const CategoryListScreen: React.FC = () => {
                     </h5>
                     <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                       <Users className="w-3 h-3" />
-                      <span>4-6 ที่นั่ง</span>
+                      <span>{language === 'th' ? '4-6 ที่นั่ง' : '4-6 Seats'}</span>
                     </div>
                   </div>
                 </div>
@@ -482,7 +488,7 @@ export const CategoryListScreen: React.FC = () => {
                     <div className="absolute top-2 left-2">
                       <span className="badge-on-colored px-2 py-0.5 rounded-full text-[10px] font-bold text-emerald-700 flex items-center gap-1 shadow-xs">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span>ว่าง</span>
+                        <span>{language === 'th' ? 'ว่าง' : 'Available'}</span>
                       </span>
                     </div>
                   </div>
@@ -493,7 +499,7 @@ export const CategoryListScreen: React.FC = () => {
                     </h5>
                     <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                       <Users className="w-3 h-3" />
-                      <span>8-12 ที่นั่ง</span>
+                      <span>{language === 'th' ? '8-12 ที่นั่ง' : '8-12 Seats'}</span>
                     </div>
                   </div>
                 </div>
@@ -540,7 +546,7 @@ export const CategoryListScreen: React.FC = () => {
                             fac.isAvailable ? 'bg-emerald-500' : 'bg-red-500'
                           }`}
                         />
-                        <span>{fac.isAvailable ? 'ว่าง' : 'เต็ม'}</span>
+                        <span>{fac.isAvailable ? (language === 'th' ? 'ว่าง' : 'Available') : (language === 'th' ? 'เต็ม' : 'Full')}</span>
                       </div>
                     </div>
 
@@ -552,7 +558,7 @@ export const CategoryListScreen: React.FC = () => {
                           ? 'bg-white text-orange-600'
                           : 'bg-white/80 hover:bg-white text-slate-700'
                       }`}
-                      aria-label="บันทึก"
+                      aria-label={language === 'th' ? 'บันทึก' : 'Bookmark'}
                     >
                       <Bookmark
                         className={`w-4 h-4 ${
@@ -566,11 +572,11 @@ export const CategoryListScreen: React.FC = () => {
                   <div className="p-4 sm:p-5 space-y-3">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                       <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{fac.locationTh}</span>
+                      <span>{language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh)}</span>
                     </div>
 
                     <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                      {fac.nameTh}
+                      {language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh)}
                     </h3>
 
                     {/* Spec badges */}
@@ -589,7 +595,7 @@ export const CategoryListScreen: React.FC = () => {
                     {fac.availableSlotsToday && fac.isAvailable && (
                       <div className="pt-1">
                         <p className="text-[11px] text-slate-400 mb-1.5 font-medium">
-                          รอบเวลาที่ว่างวันนี้:
+                          {language === 'th' ? 'รอบเวลาที่ว่างวันนี้:' : 'Available slots today:'}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {fac.availableSlotsToday.map((slot, sIdx) => (
@@ -612,9 +618,9 @@ export const CategoryListScreen: React.FC = () => {
                           <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                             <Bell className="w-4 h-4 text-orange-500 shrink-0" />
                             <span>
-                              {fac.category === 'sports'
-                                ? 'แจ้งเตือนเมื่อสนามว่าง'
-                                : 'แจ้งเตือนเมื่อว่าง'}
+                              {language === 'th'
+                                ? (fac.category === 'sports' ? 'แจ้งเตือนเมื่อสนามว่าง' : 'แจ้งเตือนเมื่อว่าง')
+                                : 'Notify when available'}
                             </span>
                           </div>
                           <button
@@ -641,7 +647,7 @@ export const CategoryListScreen: React.FC = () => {
                           className="w-full py-3.5 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-bold text-sm flex items-center justify-center gap-2 cursor-not-allowed border border-slate-200 dark:border-slate-700"
                         >
                           <Ban className="w-4 h-4" />
-                          <span>ไม่ว่าง</span>
+                          <span>{language === 'th' ? 'ไม่ว่าง' : 'Unavailable'}</span>
                         </button>
                       </div>
                     )}
@@ -654,7 +660,11 @@ export const CategoryListScreen: React.FC = () => {
                           className="w-full py-3.5 px-4 rounded-2xl text-white font-bold text-sm flex items-center justify-center gap-2 shadow-md shadow-brand/20 transition-all hover:opacity-95 active:scale-[0.99] cursor-pointer"
                           style={{ backgroundColor: 'var(--brand-strong)' }}
                         >
-                          <span>{fac.category === 'sports' ? 'จองสนามนี้' : 'จองห้องนี้'}</span>
+                          <span>
+                            {language === 'th'
+                              ? (fac.category === 'sports' ? 'จองสนามนี้' : 'จองห้องนี้')
+                              : (fac.category === 'sports' ? 'Book Court' : 'Book Room')}
+                          </span>
                           <ArrowRight className="w-4 h-4 stroke-[2.5]" />
                         </button>
                       </div>
@@ -702,7 +712,7 @@ export const CategoryListScreen: React.FC = () => {
                               fac.isAvailable ? 'bg-emerald-500' : 'bg-red-500'
                             }`}
                           />
-                          <span>{fac.isAvailable ? 'ว่าง' : 'เต็ม'}</span>
+                          <span>{fac.isAvailable ? (language === 'th' ? 'ว่าง' : 'Available') : (language === 'th' ? 'เต็ม' : 'Full')}</span>
                         </span>
                       </div>
                     </div>
@@ -712,16 +722,16 @@ export const CategoryListScreen: React.FC = () => {
                       <div>
                         <div className="flex items-start justify-between gap-1">
                           <h4 className="text-base font-bold text-slate-900 dark:text-white truncate">
-                            {fac.nameTh}
+                            {language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh)}
                           </h4>
                           <span className="shrink-0 px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-400 text-[10px] font-bold">
-                            {fac.durationLimitTh}
+                            {language === 'th' ? fac.durationLimitTh : (fac.durationLimitEn || fac.durationLimitTh)}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           <MapPin className="w-3 h-3 text-slate-400" />
-                          <span className="truncate">{fac.locationTh}</span>
+                          <span className="truncate">{language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh)}</span>
                         </div>
 
                         {/* Specs row */}
@@ -741,7 +751,7 @@ export const CategoryListScreen: React.FC = () => {
                       {!fac.isAvailable && fac.nextAvailableTime && (
                         <div className="flex items-center gap-1 text-[11px] font-bold text-red-600 dark:text-red-400 mt-1">
                           <Clock className="w-3 h-3" />
-                          <span>ว่างอีกครั้ง {fac.nextAvailableTime}</span>
+                          <span>{language === 'th' ? `ว่างอีกครั้ง ${fac.nextAvailableTime}` : `Next available ${fac.nextAvailableTime}`}</span>
                         </div>
                       )}
                     </div>
@@ -757,7 +767,9 @@ export const CategoryListScreen: React.FC = () => {
                       >
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>
-                          {fac.category === 'relax' ? 'จองคิว' : 'จองเครื่องนี้'}
+                          {language === 'th'
+                            ? (fac.category === 'relax' ? 'จองคิว' : 'จองเครื่องนี้')
+                            : (fac.category === 'relax' ? 'Queue Now' : 'Book Machine')}
                         </span>
                       </button>
                     ) : (
@@ -767,9 +779,9 @@ export const CategoryListScreen: React.FC = () => {
                           <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                             <Bell className="w-4 h-4 text-orange-500 shrink-0" />
                             <span>
-                              {fac.category === 'sports'
-                                ? 'แจ้งเตือนเมื่อสนามว่าง'
-                                : 'แจ้งเตือนเมื่อว่าง'}
+                              {language === 'th'
+                                ? (fac.category === 'sports' ? 'แจ้งเตือนเมื่อสนามว่าง' : 'แจ้งเตือนเมื่อว่าง')
+                                : 'Notify when available'}
                             </span>
                           </div>
                           <button
@@ -798,7 +810,7 @@ export const CategoryListScreen: React.FC = () => {
                           className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed border border-slate-200 dark:border-slate-700"
                         >
                           <Ban className="w-3.5 h-3.5" />
-                          <span>ไม่ว่าง</span>
+                          <span>{language === 'th' ? 'ไม่ว่าง' : 'Unavailable'}</span>
                         </button>
                       </div>
                     )}
@@ -806,50 +818,6 @@ export const CategoryListScreen: React.FC = () => {
                 </div>
               );
             })}
-
-            {/* Bottom Cabin notification card if relax */}
-            {selectedCategoryId === 'relax' && (
-              <div className="bg-blue-50/70 dark:bg-slate-900 rounded-3xl p-4 border border-blue-100 dark:border-slate-800 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center shrink-0">
-                    <Bell className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                      แจ้งเตือนเมื่อมีที่ว่าง
-                    </h4>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                      รับการแจ้งเตือนทันทีเมื่อ Cabin มีคิวว่าง
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() =>
-                    setNotificationToggles((prev) => ({
-                      ...prev,
-                      cabin_general: !prev.cabin_general,
-                    }))
-                  }
-                  className={`w-12 h-7 rounded-full p-0.5 transition-colors cursor-pointer shrink-0 ${
-                    notificationToggles.cabin_general
-                      ? 'bg-brand'
-                      : 'bg-slate-300 dark:bg-slate-700'
-                  }`}
-                  style={{
-                    backgroundColor: notificationToggles.cabin_general
-                      ? 'var(--brand-strong)'
-                      : undefined,
-                  }}
-                >
-                  <div
-                    className={`w-6 h-6 rounded-full bg-white shadow-xs transform transition-transform ${
-                      notificationToggles.cabin_general ? 'translate-x-5' : 'translate-x-0'
-                    }`}
-                  />
-                </button>
-              </div>
-            )}
           </div>
         )}
       </main>

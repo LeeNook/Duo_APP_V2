@@ -78,7 +78,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => setCurrentRoute('home')}
           className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'home'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -94,7 +94,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => setCurrentRoute('booking')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'booking'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -121,7 +121,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => navigateToCategory('seminar-room')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'category'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -142,7 +142,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => navigateToFacility('A107')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'facility'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -160,7 +160,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => navigateToConfirm('A107', 'จันทร์ 26 ตุลาคม 2569', '14:00 - 15:00 น.')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'confirm'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -181,7 +181,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => navigateToSuccess('KMITL261019-PC01')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'success'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -199,7 +199,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={navigateToHistory}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'history'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -217,7 +217,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={navigateToEmpty}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'empty'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
@@ -235,7 +235,7 @@ export const DesktopSidebar: React.FC = () => {
           onClick={() => setCurrentRoute('settings')}
           className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'settings'
-              ? 'text-white shadow-md shadow-brand/20 font-semibold'
+              ? 'text-white shadow-md shadow-brand/20'
               : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{

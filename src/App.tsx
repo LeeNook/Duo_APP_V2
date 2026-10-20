@@ -26,7 +26,37 @@ const MainLayout: React.FC = () => {
     navigateToSuccess,
     navigateToConfirm,
     toastMessage,
+    theme,
+    appearance,
   } = useApp();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const updateDark = () => {
+      let dark = false;
+      if (appearance === 'dark') {
+        dark = true;
+      } else if (appearance === 'system') {
+        dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      }
+      const root = document.documentElement;
+      if (dark) {
+        root.classList.add('dark');
+      } else {
+        root.classList.remove('dark');
+      }
+    };
+    updateDark();
+    if (appearance === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const listener = () => updateDark();
+      mediaQuery.addEventListener('change', listener);
+      return () => mediaQuery.removeEventListener('change', listener);
+    }
+  }, [appearance]);
 
   // Sync hash routing supporting deep links
   useEffect(() => {
@@ -80,9 +110,9 @@ const MainLayout: React.FC = () => {
 
   // CRITICAL: Scroll to absolute top on every route change
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    });
   }, [currentRoute]);
 
   // Render current screen
@@ -116,20 +146,20 @@ const MainLayout: React.FC = () => {
   // If on splash screen, render clean full-screen
   if (currentRoute === 'splash') {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 transition-colors">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
         <SplashScreen />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col lg:flex-row transition-colors">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col lg:flex-row">
       {/* Desktop Sidebar (visible on >=1024px) */}
       <DesktopSidebar />
 
       {/* Main Content Area */}
       <div className="flex-1 min-w-0 flex flex-col justify-start w-full overflow-x-hidden">
-        <div className="flex-1 w-full max-w-7xl mx-auto">
+        <div className="flex-1 w-full max-w-7xl mx-auto min-h-[100dvh] relative">
           {renderScreen()}
         </div>
         <BottomNav />
