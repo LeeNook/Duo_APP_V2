@@ -120,7 +120,7 @@ export const EmptyStateScreen: React.FC = () => {
             >
               <div className="relative h-28 sm:h-36 overflow-hidden">
                 <img
-                  src="/assets/aistudio/Image_5_d9b09b94.jpeg"
+                  src="assets/aistudio/Image_5_d9b09b94.jpeg"
                   alt="STUDY ROOM A108"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
@@ -150,7 +150,7 @@ export const EmptyStateScreen: React.FC = () => {
             >
               <div className="relative h-28 sm:h-36 overflow-hidden">
                 <img
-                  src="/assets/aistudio/Image_5_d9b09b94.jpeg"
+                  src="assets/aistudio/Image_5_d9b09b94.jpeg"
                   alt="KLLC PLAYGROUND"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

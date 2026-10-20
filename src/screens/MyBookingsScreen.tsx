@@ -196,10 +196,10 @@ export const MyBookingsScreen: React.FC = () => {
                           <img
                             src={
                               booking.category === 'computer'
-                                ? '/assets/aistudio/Image_1_5788b2c5.jpeg'
+                                ? 'assets/aistudio/Image_1_5788b2c5.jpeg'
                                 : booking.category === 'seminar-room'
-                                ? '/assets/aistudio/Image_6_7b6b6f89.jpeg'
-                                : '/assets/aistudio/Image_3_3a55cfff.jpeg'
+                                ? 'assets/aistudio/Image_6_7b6b6f89.jpeg'
+                                : 'assets/aistudio/Image_3_3a55cfff.jpeg'
                             }
                             alt={booking.locationCode}
                             className="w-full h-full object-cover"
@@ -400,10 +400,10 @@ export const MyBookingsScreen: React.FC = () => {
                           <img
                             src={
                               booking.category === 'computer'
-                                ? '/assets/aistudio/Image_1_5788b2c5.jpeg'
+                                ? 'assets/aistudio/Image_1_5788b2c5.jpeg'
                                 : booking.category === 'seminar-room'
-                                ? '/assets/aistudio/Image_6_7b6b6f89.jpeg'
-                                : '/assets/aistudio/Image_3_3a55cfff.jpeg'
+                                ? 'assets/aistudio/Image_6_7b6b6f89.jpeg'
+                                : 'assets/aistudio/Image_3_3a55cfff.jpeg'
                             }
                             alt={booking.locationCode}
                             className="w-full h-full object-cover"
