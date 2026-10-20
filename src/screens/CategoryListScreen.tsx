@@ -92,9 +92,9 @@ export const CategoryListScreen: React.FC = () => {
     const nextState = !notificationToggles[id];
     setNotificationToggles((prev) => ({ ...prev, [id]: nextState }));
     if (nextState) {
-      showToast('เปิดการแจ้งเตือนเมื่อรายการว่างแล้ว');
+      showToast(language === 'th' ? 'เปิดการแจ้งเตือนเมื่อรายการว่างแล้ว' : 'Notification alert enabled for vacancy');
     } else {
-      showToast('ปิดการแจ้งเตือน');
+      showToast(language === 'th' ? 'ปิดการแจ้งเตือน' : 'Notification alert disabled');
     }
   };
 
@@ -133,7 +133,7 @@ export const CategoryListScreen: React.FC = () => {
                 className={`px-3 py-1.5 rounded-full text-xs font-bold shrink-0 transition-all cursor-pointer border ${
                   isActive
                     ? 'text-white shadow-sm border-transparent'
-                    : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200/80 dark:border-slate-800'
+                    : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border-slate-200/80 dark:border-slate-800'
                 }`}
                 style={{
                   backgroundColor: isActive ? 'var(--brand-strong)' : undefined,
@@ -149,14 +149,22 @@ export const CategoryListScreen: React.FC = () => {
         {selectedCategoryId === 'sports' && (
           <div className="p-3.5 rounded-2xl bg-orange-100/80 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/60 flex items-center gap-2.5 text-xs text-orange-950 dark:text-orange-200 font-medium">
             <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>{language === 'th' ? 'ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง' : 'Sports Center does not provide equipment loan. Please bring your own.'}</span>
+            <span>
+              {language === 'th'
+                ? 'ศูนย์กีฬาไม่มีอุปกรณ์ให้ยืม โปรดนำมาเอง'
+                : 'Sports Center does not provide equipment loan. Please bring your own.'}
+            </span>
           </div>
         )}
 
         {selectedCategoryId === 'relax' && (
           <div className="p-3.5 rounded-2xl bg-orange-100/80 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-800/60 flex items-center gap-2.5 text-xs text-orange-950 dark:text-orange-200 font-medium">
             <AlertCircle className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>{language === 'th' ? 'มาช้าเกิน 5 นาที ตัดสิทธิ์ (เก้าอี้นวด) / 15 นาที (Cabin)' : 'Late >5 min forfeits slot (Massage Chair) / >15 min (Cabin)'}</span>
+            <span>
+              {language === 'th'
+                ? 'มาช้าเกิน 5 นาที ตัดสิทธิ์ (เก้าอี้นวด) / 15 นาที (Cabin)'
+                : 'Late >5 min forfeits slot (Massage Chair) / >15 min (Cabin)'}
+            </span>
           </div>
         )}
 
@@ -205,7 +213,7 @@ export const CategoryListScreen: React.FC = () => {
               </button>
             </div>
 
-            {/* Consistent Filter Button with Funnel Icon and In-page Action */}
+            {/* Filter Button */}
             <button
               onClick={() => showToast(language === 'th' ? 'ตัวเลือกตัวกรอง' : 'Filter options')}
               className="ml-auto flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs cursor-pointer"
@@ -346,7 +354,7 @@ export const CategoryListScreen: React.FC = () => {
             </span>
           </div>
 
-          <span className="text-slate-400 dark:text-slate-500">
+          <span className="text-slate-500 dark:text-slate-400">
             {isBannerStyle
               ? (language === 'th' ? 'สำนักการเรียนรู้ (KLLC)' : 'Learning Hub (KLLC)')
               : (language === 'th' ? 'อัปเดตล่าสุด' : 'Live Updated')}
@@ -370,7 +378,6 @@ export const CategoryListScreen: React.FC = () => {
                 </div>
               </div>
 
-              {/* CRITICAL: Explicit heading "ไม่มีรายการให้จอง" */}
               <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mb-2">
                 {language === 'th' ? 'ไม่มีรายการให้จอง' : 'No Items to Book'}
               </h2>
@@ -419,7 +426,7 @@ export const CategoryListScreen: React.FC = () => {
 
               <div className="text-center">
                 <button
-                  onClick={() => alert(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
+                  onClick={() => showToast(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
                   className="text-xs font-bold underline flex items-center justify-center gap-1 mx-auto cursor-pointer"
                   style={{ color: 'var(--brand-strong)' }}
                 >
@@ -515,6 +522,11 @@ export const CategoryListScreen: React.FC = () => {
               const isBookmarked = !!bookmarkedIds[fac.id];
               const isNotifyOn = !!notificationToggles[fac.id];
 
+              const displayName = language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh);
+              const displayLocation = language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh);
+              const displayTags = (language === 'th' ? fac.tagsTh : (fac.tagsEn || fac.tagsTh)) || [];
+              const displaySlots = (language === 'th' ? fac.availableSlotsToday : (fac.availableSlotsTodayEn || fac.availableSlotsToday));
+
               return (
                 <div
                   key={fac.id}
@@ -526,7 +538,7 @@ export const CategoryListScreen: React.FC = () => {
                   <div className="relative w-full h-52 sm:h-64 overflow-hidden">
                     <img
                       src={fac.imageUrl}
-                      alt={fac.nameTh}
+                      alt={displayName}
                       className={`w-full h-full object-cover transition-transform duration-500 ${
                         !fac.isAvailable ? 'grayscale' : 'hover:scale-105'
                       }`}
@@ -572,16 +584,16 @@ export const CategoryListScreen: React.FC = () => {
                   <div className="p-4 sm:p-5 space-y-3">
                     <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
                       <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                      <span>{language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh)}</span>
+                      <span>{displayLocation}</span>
                     </div>
 
                     <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                      {language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh)}
+                      {displayName}
                     </h3>
 
                     {/* Spec badges */}
                     <div className="flex flex-wrap gap-1.5">
-                      {(fac.tagsTh || []).map((tag, idx) => (
+                      {displayTags.map((tag, idx) => (
                         <span
                           key={idx}
                           className="px-2.5 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
@@ -592,13 +604,13 @@ export const CategoryListScreen: React.FC = () => {
                     </div>
 
                     {/* Available slot preview pills (for sports) */}
-                    {fac.availableSlotsToday && fac.isAvailable && (
+                    {displaySlots && fac.isAvailable && (
                       <div className="pt-1">
-                        <p className="text-[11px] text-slate-400 mb-1.5 font-medium">
+                        <p className="text-[11px] text-slate-400 dark:text-slate-400 mb-1.5 font-medium">
                           {language === 'th' ? 'รอบเวลาที่ว่างวันนี้:' : 'Available slots today:'}
                         </p>
                         <div className="flex flex-wrap gap-2">
-                          {fac.availableSlotsToday.map((slot, sIdx) => (
+                          {displaySlots.map((slot, sIdx) => (
                             <span
                               key={sIdx}
                               className="px-3 py-1 rounded-xl text-xs font-bold bg-blue-50 dark:bg-slate-800 text-blue-700 dark:text-blue-300"
@@ -614,7 +626,7 @@ export const CategoryListScreen: React.FC = () => {
                     {!fac.isAvailable && (
                       <div className="space-y-2">
                         {/* Top row: White card container with orange bell icon, text, and toggle switch */}
-                        <div className="p-3 rounded-2xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center justify-between">
+                        <div className="p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center justify-between">
                           <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                             <Bell className="w-4 h-4 text-orange-500 shrink-0" />
                             <span>
@@ -644,7 +656,7 @@ export const CategoryListScreen: React.FC = () => {
                         {/* Bottom row: Full-width, muted/gray button with slashed circle icon and 'ไม่ว่าง' */}
                         <button
                           disabled
-                          className="w-full py-3.5 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-bold text-sm flex items-center justify-center gap-2 cursor-not-allowed border border-slate-200 dark:border-slate-700"
+                          className="w-full py-3.5 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 font-bold text-sm flex items-center justify-center gap-2 cursor-not-allowed border border-slate-200 dark:border-slate-700"
                         >
                           <Ban className="w-4 h-4" />
                           <span>{language === 'th' ? 'ไม่ว่าง' : 'Unavailable'}</span>
@@ -681,6 +693,10 @@ export const CategoryListScreen: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredFacilities.map((fac) => {
               const isNotifyOn = !!notificationToggles[fac.id];
+              const displayName = language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh);
+              const displayLocation = language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh);
+              const displayTags = (language === 'th' ? fac.tagsTh : (fac.tagsEn || fac.tagsTh)) || [];
+              const displayDuration = language === 'th' ? fac.durationLimitTh : (fac.durationLimitEn || fac.durationLimitTh);
 
               return (
                 <div
@@ -694,7 +710,7 @@ export const CategoryListScreen: React.FC = () => {
                     <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shrink-0">
                       <img
                         src={fac.imageUrl}
-                        alt={fac.nameTh}
+                        alt={displayName}
                         className={`w-full h-full object-cover ${
                           !fac.isAvailable ? 'grayscale' : ''
                         }`}
@@ -722,21 +738,21 @@ export const CategoryListScreen: React.FC = () => {
                       <div>
                         <div className="flex items-start justify-between gap-1">
                           <h4 className="text-base font-bold text-slate-900 dark:text-white truncate">
-                            {language === 'th' ? fac.nameTh : (fac.nameEn || fac.nameTh)}
+                            {displayName}
                           </h4>
                           <span className="shrink-0 px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-400 text-[10px] font-bold">
-                            {language === 'th' ? fac.durationLimitTh : (fac.durationLimitEn || fac.durationLimitTh)}
+                            {displayDuration}
                           </span>
                         </div>
 
                         <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                           <MapPin className="w-3 h-3 text-slate-400" />
-                          <span className="truncate">{language === 'th' ? fac.locationTh : (fac.locationEn || fac.locationTh)}</span>
+                          <span className="truncate">{displayLocation}</span>
                         </div>
 
                         {/* Specs row */}
                         <div className="mt-1.5 flex flex-wrap gap-1">
-                          {(fac.tagsTh || []).map((tag, tIdx) => (
+                          {displayTags.map((tag, tIdx) => (
                             <span
                               key={tIdx}
                               className="px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 truncate"
@@ -751,7 +767,11 @@ export const CategoryListScreen: React.FC = () => {
                       {!fac.isAvailable && fac.nextAvailableTime && (
                         <div className="flex items-center gap-1 text-[11px] font-bold text-red-600 dark:text-red-400 mt-1">
                           <Clock className="w-3 h-3" />
-                          <span>{language === 'th' ? `ว่างอีกครั้ง ${fac.nextAvailableTime}` : `Next available ${fac.nextAvailableTime}`}</span>
+                          <span>
+                            {language === 'th'
+                              ? `ว่างอีกครั้ง ${fac.nextAvailableTime}`
+                              : `Next available ${fac.nextAvailableTimeEn || fac.nextAvailableTime}`}
+                          </span>
                         </div>
                       )}
                     </div>
@@ -775,7 +795,7 @@ export const CategoryListScreen: React.FC = () => {
                     ) : (
                       <div className="space-y-2 pt-1">
                         {/* Top row: White card container with orange bell icon, text, and toggle switch */}
-                        <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center justify-between">
+                        <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 shadow-2xs flex items-center justify-between">
                           <div className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
                             <Bell className="w-4 h-4 text-orange-500 shrink-0" />
                             <span>
@@ -807,7 +827,7 @@ export const CategoryListScreen: React.FC = () => {
                         {/* Bottom row: Full-width, muted/gray button with slashed circle icon and 'ไม่ว่าง' */}
                         <button
                           disabled
-                          className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed border border-slate-200 dark:border-slate-700"
+                          className="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 text-slate-400 dark:text-slate-400 font-bold text-xs flex items-center justify-center gap-1.5 cursor-not-allowed border border-slate-200 dark:border-slate-700"
                         >
                           <Ban className="w-3.5 h-3.5" />
                           <span>{language === 'th' ? 'ไม่ว่าง' : 'Unavailable'}</span>

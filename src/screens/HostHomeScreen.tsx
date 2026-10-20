@@ -28,7 +28,7 @@ import {
 } from '../data/mockData';
 
 export const HostHomeScreen: React.FC = () => {
-  const { setCurrentRoute, user, language, upcomingTicket } = useApp();
+  const { setCurrentRoute, user, language, upcomingTicket, showToast } = useApp();
   const [newsList] = useState(MOCK_NEWS);
   const [occupancyList] = useState(MOCK_OCCUPANCY);
 
@@ -38,13 +38,13 @@ export const HostHomeScreen: React.FC = () => {
 
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 space-y-6">
         {/* 1. Student Profile Card */}
-        <section className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-100 dark:border-slate-800/80 transition-all">
+        <section className="bg-white dark:bg-slate-900 rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-100 dark:border-slate-800 transition-all">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3.5 min-w-0">
               <div className="relative shrink-0">
                 <img
                   src={user.avatarUrl}
-                  alt={user.name}
+                  alt={language === 'th' ? user.name : (user.nameEn || user.name)}
                   className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-white dark:border-slate-800 shadow-md"
                 />
                 <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900" />
@@ -58,16 +58,18 @@ export const HostHomeScreen: React.FC = () => {
 
               <div className="min-w-0">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white truncate">
-                  {language === 'th' ? `สวัสดี, ${user.name}` : `Hello, ${user.name}`}
+                  {language === 'th' ? `สวัสดี, ${user.name}` : `Hello, ${user.nameEn || user.name}`}
                 </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                  {user.faculty} {user.department}
+                <p className="text-xs text-slate-500 dark:text-slate-300 truncate mt-0.5">
+                  {language === 'th'
+                    ? `${user.faculty} ${user.department}`
+                    : `${user.facultyEn || user.faculty} • ${user.departmentEn || user.department}`}
                 </p>
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="inline-block px-2.5 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                    {language === 'th' ? `รหัส ${user.studentId}` : `ID ${user.studentId}`}
+                  <span className="inline-block px-2.5 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    {language === 'th' ? `รหัส ${user.studentId}` : `ID: ${user.studentId}`}
                   </span>
-                  <span className="inline-block px-2.5 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                  <span className="inline-block px-2.5 py-0.5 text-[10px] font-medium rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                     {language === 'th' ? 'ปีการศึกษา 2569' : 'Academic Year 2026'}
                   </span>
                 </div>
@@ -104,7 +106,7 @@ export const HostHomeScreen: React.FC = () => {
                 </h3>
               </div>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">
-                {upcomingTicket.statusLabelTh}
+                {language === 'th' ? upcomingTicket.statusLabelTh : (upcomingTicket.statusLabelEn || 'Confirmed')}
               </span>
             </div>
 
@@ -113,8 +115,10 @@ export const HostHomeScreen: React.FC = () => {
                 <h4 className="text-base font-bold text-slate-900 dark:text-white truncate">
                   {upcomingTicket.locationCode}
                 </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                  {upcomingTicket.dateTh} {upcomingTicket.timeRangeTh}
+                <p className="text-xs text-slate-500 dark:text-slate-300 truncate mt-0.5">
+                  {language === 'th'
+                    ? `${upcomingTicket.dateTh} ${upcomingTicket.timeRangeTh}`
+                    : `${upcomingTicket.dateEn || upcomingTicket.dateTh} ${upcomingTicket.timeRangeEn || upcomingTicket.timeRangeTh}`}
                 </p>
               </div>
 
@@ -144,8 +148,8 @@ export const HostHomeScreen: React.FC = () => {
               </h3>
             </div>
             <button
-              onClick={() => alert(language === 'th' ? 'แสดงข่าวสารและประกาศทั้งหมด' : 'Showing all news and notices')}
-              className="text-xs font-semibold flex items-center gap-0.5 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 transition-colors cursor-pointer"
+              onClick={() => showToast(language === 'th' ? 'แสดงข่าวสารและประกาศทั้งหมด' : 'Showing all news and notices')}
+              className="text-xs font-semibold flex items-center gap-0.5 text-slate-500 hover:text-slate-800 dark:text-slate-300 dark:hover:text-white transition-colors cursor-pointer"
             >
               <span>{language === 'th' ? 'ดูทั้งหมด' : 'View All'}</span>
               <ChevronRight className="w-4 h-4" />
@@ -160,7 +164,7 @@ export const HostHomeScreen: React.FC = () => {
               >
                 <img
                   src={news.imageUrl}
-                  alt={news.titleTh}
+                  alt={language === 'th' ? news.titleTh : (news.titleEn || news.titleTh)}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/45 to-black/15" />
@@ -175,25 +179,24 @@ export const HostHomeScreen: React.FC = () => {
                     }`}
                   >
                     <Clock className="w-3 h-3" />
-                    <span>{news.badgeTh}</span>
+                    <span>{language === 'th' ? news.badgeTh : (news.badgeEn || news.badgeTh)}</span>
                   </span>
                 </div>
 
                 {/* Content */}
                 <div className="absolute bottom-3 left-3 right-3 text-white">
                   <p className="text-xs font-medium text-slate-300 mb-0.5">
-                    ห้องสมุด KLLC
+                    {language === 'th' ? 'ห้องสมุด KLLC' : 'KLLC Library'}
                   </p>
                   <h4 className="text-sm font-bold line-clamp-1 leading-snug">
-                    {news.titleTh}
+                    {language === 'th' ? news.titleTh : (news.titleEn || news.titleTh)}
                   </h4>
                   <div className="flex items-center justify-between mt-2 pt-2 border-t border-white/15 text-xs text-slate-300">
-                    <span>{news.dateRangeTh}</span>
+                    <span>{language === 'th' ? news.dateRangeTh : (news.dateRangeEn || news.dateRangeTh)}</span>
                     <span
-                      className="font-bold flex items-center gap-1"
-                      style={{ color: 'var(--brand-muted)' }}
+                      className="font-bold flex items-center gap-1 text-white hover:underline"
                     >
-                      รายละเอียด <ArrowRight className="w-3.5 h-3.5" />
+                      {language === 'th' ? 'รายละเอียด' : 'Details'} <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
                 </div>
@@ -211,8 +214,8 @@ export const HostHomeScreen: React.FC = () => {
                 {language === 'th' ? 'การใช้งานล่าสุด' : 'Recent Usage'}
               </h3>
             </div>
-            <span className="text-xs text-slate-400 dark:text-slate-500">
-              {MOCK_PAST_BOOKING.categoryTh}
+            <span className="text-xs text-slate-500 dark:text-slate-400">
+              {language === 'th' ? MOCK_PAST_BOOKING.categoryTh : (MOCK_PAST_BOOKING.categoryEn || MOCK_PAST_BOOKING.categoryTh)}
             </span>
           </div>
 
@@ -231,18 +234,22 @@ export const HostHomeScreen: React.FC = () => {
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                    {MOCK_PAST_BOOKING.roomName}
+                    {language === 'th' ? MOCK_PAST_BOOKING.roomName : (MOCK_PAST_BOOKING.roomNameEn || MOCK_PAST_BOOKING.roomName)}
                   </h4>
                   <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400">
                     {language === 'th' ? 'สำเร็จ' : 'Completed'}
                   </span>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                  {MOCK_PAST_BOOKING.buildingTh}
+                <p className="text-xs text-slate-500 dark:text-slate-300 truncate mt-0.5">
+                  {language === 'th' ? MOCK_PAST_BOOKING.buildingTh : (MOCK_PAST_BOOKING.buildingEn || MOCK_PAST_BOOKING.buildingTh)}
                 </p>
-                <div className="flex items-center gap-1 text-[11px] text-slate-400 dark:text-slate-500 mt-1">
+                <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 mt-1">
                   <Clock className="w-3 h-3" />
-                  <span>{MOCK_PAST_BOOKING.dateTh} {MOCK_PAST_BOOKING.timeRangeTh}</span>
+                  <span>
+                    {language === 'th'
+                      ? `${MOCK_PAST_BOOKING.dateTh} ${MOCK_PAST_BOOKING.timeRangeTh}`
+                      : `${MOCK_PAST_BOOKING.dateEn || MOCK_PAST_BOOKING.dateTh} ${MOCK_PAST_BOOKING.timeRangeEn || MOCK_PAST_BOOKING.timeRangeTh}`}
+                  </span>
                 </div>
               </div>
             </div>
@@ -275,7 +282,7 @@ export const HostHomeScreen: React.FC = () => {
                 {language === 'th' ? 'บริการทั้งหมด' : 'All Services'}
               </h3>
             </div>
-            <span className="text-xs text-slate-400 dark:text-slate-500">
+            <span className="text-xs text-slate-500 dark:text-slate-400">
               {language === 'th' ? '8 รายการ' : '8 Items'}
             </span>
           </div>
@@ -300,7 +307,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 2: ตารางเรียน */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการตารางเรียน' : 'Class Schedule Service')}
+              onClick={() => showToast(language === 'th' ? 'บริการตารางเรียน' : 'Class Schedule Service')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -313,7 +320,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 3: ผลการเรียน */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการผลการเรียน' : 'Academic Grades Service')}
+              onClick={() => showToast(language === 'th' ? 'บริการผลการเรียน' : 'Academic Grades Service')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -326,7 +333,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 4: บัตรนักศึกษา */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการบัตรนักศึกษาดิจิทัล' : 'Digital Student ID')}
+              onClick={() => showToast(language === 'th' ? 'บริการบัตรนักศึกษาดิจิทัล' : 'Digital Student ID')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -339,7 +346,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 5: ข่าว/อีเวนต์ */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการข่าวสารและอีเวนต์' : 'Campus Events & News')}
+              onClick={() => showToast(language === 'th' ? 'บริการข่าวสารและอีเวนต์' : 'Campus Events & News')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -352,7 +359,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 6: แผนที่มอ */}
             <button
-              onClick={() => alert(language === 'th' ? 'แผนที่มหาวิทยาลัย KMITL Map' : 'Campus Map')}
+              onClick={() => showToast(language === 'th' ? 'แผนที่มหาวิทยาลัย KMITL Map' : 'Campus Map')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -365,7 +372,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 7: ยืมหนังสือ */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการยืม-คืนหนังสือ KLLC' : 'Library Book Loan')}
+              onClick={() => showToast(language === 'th' ? 'บริการยืม-คืนหนังสือ KLLC' : 'Library Book Loan')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -378,7 +385,7 @@ export const HostHomeScreen: React.FC = () => {
 
             {/* Tile 8: แจ้งซ่อม */}
             <button
-              onClick={() => alert(language === 'th' ? 'บริการแจ้งซ่อมและบำรุงรักษา' : 'Maintenance Request')}
+              onClick={() => showToast(language === 'th' ? 'บริการแจ้งซ่อมและบำรุงรักษา' : 'Maintenance Request')}
               className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-xs transition-transform hover:scale-105 active:scale-95 cursor-pointer text-slate-800 dark:text-slate-200"
             >
               <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-1.5 text-slate-600 dark:text-slate-300">
@@ -403,7 +410,7 @@ export const HostHomeScreen: React.FC = () => {
                 {language === 'th' ? 'สถานะพื้นที่ห้องสมุด' : 'Library Occupancy'}
               </h3>
             </div>
-            <span className="text-xs font-medium text-slate-400 dark:text-slate-500">
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
               {language === 'th' ? 'อัปเดตแบบเรียลไทม์' : 'Live Updated'}
             </span>
           </div>
@@ -415,10 +422,10 @@ export const HostHomeScreen: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <Building2 className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {item.nameTh}
+                      {language === 'th' ? item.nameTh : (item.nameEn || item.nameTh)}
                     </span>
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500">
-                      {item.detailTh}
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      {language === 'th' ? item.detailTh : (item.detailEn || item.detailTh)}
                     </span>
                   </div>
                   <span
@@ -460,9 +467,9 @@ export const HostHomeScreen: React.FC = () => {
           {/* Booking prompt box */}
           <div
             onClick={() => setCurrentRoute('booking')}
-            className="mt-4 p-3 rounded-2xl flex items-center justify-between cursor-pointer transition-all hover:opacity-90 active:scale-[0.99] bg-orange-50/70 dark:bg-slate-800/80 border border-orange-200/50 dark:border-slate-700"
+            className="mt-4 p-3 rounded-2xl flex items-center justify-between cursor-pointer transition-all hover:opacity-90 active:scale-[0.99] bg-orange-50/70 dark:bg-slate-800 border border-orange-200/50 dark:border-slate-700"
           >
-            <div className="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-300">
+            <div className="flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-200">
               <Info className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <span>{language === 'th' ? 'ต้องการจองห้องสัมมนากลุ่มล่วงหน้า?' : 'Need to book a group study room?'}</span>
             </div>
@@ -478,7 +485,7 @@ export const HostHomeScreen: React.FC = () => {
         <section
           className="rounded-3xl p-5 text-white shadow-md relative overflow-hidden flex items-center justify-between cursor-pointer transition-transform hover:scale-[1.01]"
           style={{ backgroundColor: 'var(--brand-strong)' }}
-          onClick={() => alert(language === 'th' ? 'ปฏิทินการศึกษาสอบปลายภาค 2/2569' : 'Final Exam Academic Calendar 2/2026')}
+          onClick={() => showToast(language === 'th' ? 'ปฏิทินการศึกษาสอบปลายภาค 2/2569' : 'Final Exam Academic Calendar 2/2026')}
         >
           <div className="flex items-center gap-3.5 min-w-0">
             <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center shrink-0">
@@ -488,7 +495,7 @@ export const HostHomeScreen: React.FC = () => {
               <h4 className="text-sm font-bold text-white truncate">
                 {language === 'th' ? 'สัปดาห์สอบปลายภาค ภาคการศึกษา 2/2569' : 'Final Exam Week - Semester 2/2026'}
               </h4>
-              <p className="text-xs text-white/80 mt-0.5">
+              <p className="text-xs text-white/85 mt-0.5">
                 {language === 'th' ? 'เริ่มต้นในอีก 6 วัน (เริ่ม 16 มี.ค. 2569)' : 'Starts in 6 days (Mar 16, 2026)'}
               </p>
             </div>

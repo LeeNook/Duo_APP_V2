@@ -64,10 +64,10 @@ export const RatingSheet: React.FC = () => {
           />
           <div className="min-w-0">
             <h4 className="text-xs font-bold text-slate-900 dark:text-white truncate">
-              {ratingBooking.roomName}
+              {language === 'th' ? ratingBooking.roomName : (ratingBooking.roomNameEn || ratingBooking.roomName)}
             </h4>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 truncate">
-              {ratingBooking.buildingTh} • {ratingBooking.dateTh} {ratingBooking.timeRangeTh}
+            <p className="text-[11px] text-slate-400 dark:text-slate-400 truncate">
+              {(language === 'th' ? ratingBooking.buildingTh : (ratingBooking.buildingEn || ratingBooking.buildingTh))} • {(language === 'th' ? ratingBooking.dateTh : (ratingBooking.dateEn || ratingBooking.dateTh))} {(language === 'th' ? ratingBooking.timeRangeTh : (ratingBooking.timeRangeEn || ratingBooking.timeRangeTh))}
             </p>
           </div>
           <button

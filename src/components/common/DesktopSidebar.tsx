@@ -6,8 +6,6 @@ import {
   Sun,
   Moon,
   Laptop,
-  Smartphone,
-  Monitor,
   Flame,
   Layers,
   HelpCircle,
@@ -31,8 +29,6 @@ export const DesktopSidebar: React.FC = () => {
     language,
     user,
     quota,
-    previewDevice,
-    setPreviewDevice,
     navigateToCategory,
     navigateToFacility,
     navigateToConfirm,
@@ -41,11 +37,11 @@ export const DesktopSidebar: React.FC = () => {
     navigateToEmpty,
   } = useApp();
 
-  const themes: { id: ThemeColor; label: string; color: string }[] = [
-    { id: 'orange', label: 'KMITL Orange', color: '#E35205' },
-    { id: 'blue', label: 'Academic Blue', color: '#2563EB' },
-    { id: 'green', label: 'Emerald Green', color: '#059669' },
-    { id: 'purple', label: 'Deep Purple', color: '#7C3AED' },
+  const themes: { id: ThemeColor; labelTh: string; labelEn: string; color: string }[] = [
+    { id: 'orange', labelTh: 'ส้ม KMITL', labelEn: 'KMITL Orange', color: '#E35205' },
+    { id: 'blue', labelTh: 'น้ำเงินวิชาการ', labelEn: 'Academic Blue', color: '#2563EB' },
+    { id: 'green', labelTh: 'เขียวมรกต', labelEn: 'Emerald Green', color: '#059669' },
+    { id: 'purple', labelTh: 'ม่วงเข้ม', labelEn: 'Deep Purple', color: '#7C3AED' },
   ];
 
   return (
@@ -79,7 +75,7 @@ export const DesktopSidebar: React.FC = () => {
           className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'home'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'home' ? 'var(--brand)' : undefined,
@@ -95,7 +91,7 @@ export const DesktopSidebar: React.FC = () => {
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'booking'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'booking' ? 'var(--brand)' : undefined,
@@ -112,17 +108,17 @@ export const DesktopSidebar: React.FC = () => {
               color: currentRoute === 'booking' ? 'var(--brand)' : '#FFFFFF',
             }}
           >
-            {quota.remainingToday} สิทธิ์
+            {quota.remainingToday} {language === 'th' ? 'สิทธิ์' : 'left'}
           </span>
         </button>
 
-        {/* 3. Category List (Part 2) */}
+        {/* 3. Category List */}
         <button
-          onClick={() => navigateToCategory('seminar-room')}
+          onClick={() => navigateToCategory('seminar')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'category'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'category' ? 'var(--brand)' : undefined,
@@ -132,18 +128,15 @@ export const DesktopSidebar: React.FC = () => {
             <Layers className="w-4 h-4" />
             <span>{language === 'th' ? 'หมวดหมู่ / รายการ' : 'Category List'}</span>
           </div>
-          <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
-            Part 2
-          </span>
         </button>
 
-        {/* 4. Detail & Timeslot (Part 2) */}
+        {/* 4. Detail & Timeslot */}
         <button
           onClick={() => navigateToFacility('A107')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'facility'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'facility' ? 'var(--brand)' : undefined,
@@ -155,13 +148,13 @@ export const DesktopSidebar: React.FC = () => {
           </div>
         </button>
 
-        {/* 5. Confirm Booking (Part 3) */}
+        {/* 5. Confirm Booking */}
         <button
           onClick={() => navigateToConfirm('A107', 'จันทร์ 26 ตุลาคม 2569', '14:00 - 15:00 น.')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'confirm'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'confirm' ? 'var(--brand)' : undefined,
@@ -169,20 +162,17 @@ export const DesktopSidebar: React.FC = () => {
         >
           <div className="flex items-center gap-3">
             <CheckCircle2 className="w-4 h-4" />
-            <span>{language === 'th' ? 'แบบฟอร์มยืนยัน' : 'Confirm'}</span>
+            <span>{language === 'th' ? 'แบบฟอร์มยืนยัน' : 'Confirm Booking'}</span>
           </div>
-          <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-950 dark:text-orange-300">
-            Part 3
-          </span>
         </button>
 
-        {/* 6. Success E-Slip (Part 3) */}
+        {/* 6. Success E-Slip */}
         <button
           onClick={() => navigateToSuccess('KMITL261019-PC01')}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'success'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'success' ? 'var(--brand)' : undefined,
@@ -190,17 +180,17 @@ export const DesktopSidebar: React.FC = () => {
         >
           <div className="flex items-center gap-3">
             <Ticket className="w-4 h-4" />
-            <span>{language === 'th' ? 'บัตร E-Slip' : 'E-Slip'}</span>
+            <span>{language === 'th' ? 'บัตร E-Slip' : 'E-Slip Ticket'}</span>
           </div>
         </button>
 
-        {/* 7. My Bookings / History (Part 3) */}
+        {/* 7. My Bookings / History */}
         <button
           onClick={navigateToHistory}
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'history'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'history' ? 'var(--brand)' : undefined,
@@ -208,7 +198,7 @@ export const DesktopSidebar: React.FC = () => {
         >
           <div className="flex items-center gap-3">
             <HistoryIcon className="w-4 h-4" />
-            <span>{language === 'th' ? 'การจองของฉัน / ประวัติ' : 'History'}</span>
+            <span>{language === 'th' ? 'การจองของฉัน / ประวัติ' : 'My Bookings / History'}</span>
           </div>
         </button>
 
@@ -218,7 +208,7 @@ export const DesktopSidebar: React.FC = () => {
           className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'empty'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'empty' ? 'var(--brand)' : undefined,
@@ -226,7 +216,7 @@ export const DesktopSidebar: React.FC = () => {
         >
           <div className="flex items-center gap-3">
             <HelpCircle className="w-4 h-4" />
-            <span>{language === 'th' ? 'สถานะว่างเปล่า (Empty)' : 'Empty State'}</span>
+            <span>{language === 'th' ? 'สถานะว่างเปล่า' : 'Empty State'}</span>
           </div>
         </button>
 
@@ -236,58 +226,27 @@ export const DesktopSidebar: React.FC = () => {
           className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
             currentRoute === 'settings'
               ? 'text-white shadow-md shadow-brand/20'
-              : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              : 'text-slate-600 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800'
           }`}
           style={{
             backgroundColor: currentRoute === 'settings' ? 'var(--brand)' : undefined,
           }}
         >
           <Settings className="w-4 h-4" />
-          <span>{language === 'th' ? 'การตั้งค่า (Settings)' : 'Settings'}</span>
+          <span>{language === 'th' ? 'การตั้งค่า' : 'Settings'}</span>
         </button>
 
-        {/* Device view switcher */}
-        <div className="pt-4 mt-3 border-t border-slate-100 dark:border-slate-800">
-          <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            View Mode
-          </p>
-          <div className="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl">
-            <button
-              onClick={() => setPreviewDevice('desktop')}
-              className={`flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
-                previewDevice === 'desktop'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-              }`}
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span>Full View</span>
-            </button>
-            <button
-              onClick={() => setPreviewDevice('mobile-mock')}
-              className={`flex items-center justify-center gap-1.5 py-1.5 text-xs font-medium rounded-lg transition-all cursor-pointer ${
-                previewDevice === 'mobile-mock'
-                  ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
-              }`}
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span>Mobile Mock</span>
-            </button>
-          </div>
-        </div>
-
         {/* Theme Swatches */}
-        <div className="pt-3">
-          <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            Theme Swatch
+        <div className="pt-4 mt-3 border-t border-slate-100 dark:border-slate-800">
+          <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">
+            {language === 'th' ? 'ชุดสีธีม' : 'Theme Swatch'}
           </p>
           <div className="flex items-center gap-2">
             {themes.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setTheme(t.id)}
-                title={t.label}
+                title={language === 'th' ? t.labelTh : t.labelEn}
                 className={`w-7 h-7 rounded-full flex items-center justify-center transition-transform hover:scale-110 cursor-pointer ${
                   theme === t.id
                     ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-900 ring-slate-700 dark:ring-white scale-110'
@@ -301,8 +260,8 @@ export const DesktopSidebar: React.FC = () => {
 
         {/* Appearance Switch */}
         <div className="pt-3">
-          <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">
-            Appearance
+          <p className="text-[11px] font-semibold text-slate-400 dark:text-slate-400 uppercase tracking-wider mb-2">
+            {language === 'th' ? 'รูปแบบการแสดงผล' : 'Appearance'}
           </p>
           <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl">
             <button
@@ -310,9 +269,9 @@ export const DesktopSidebar: React.FC = () => {
               className={`flex-1 py-1 flex items-center justify-center rounded-lg text-xs transition-colors cursor-pointer ${
                 appearance === 'light'
                   ? 'bg-white text-slate-900 shadow-xs font-semibold'
-                  : 'text-slate-500'
+                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
               }`}
-              title="Light Mode"
+              title={language === 'th' ? 'โหมดสว่าง' : 'Light Mode'}
             >
               <Sun className="w-3.5 h-3.5" />
             </button>
@@ -321,9 +280,9 @@ export const DesktopSidebar: React.FC = () => {
               className={`flex-1 py-1 flex items-center justify-center rounded-lg text-xs transition-colors cursor-pointer ${
                 appearance === 'dark'
                   ? 'bg-slate-700 text-white shadow-xs font-semibold'
-                  : 'text-slate-500'
+                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
               }`}
-              title="Dark Mode"
+              title={language === 'th' ? 'โหมดมืด' : 'Dark Mode'}
             >
               <Moon className="w-3.5 h-3.5" />
             </button>
@@ -332,9 +291,9 @@ export const DesktopSidebar: React.FC = () => {
               className={`flex-1 py-1 flex items-center justify-center rounded-lg text-xs transition-colors cursor-pointer ${
                 appearance === 'system'
                   ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs font-semibold'
-                  : 'text-slate-500'
+                  : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'
               }`}
-              title="System Mode"
+              title={language === 'th' ? 'ตามระบบ' : 'System Mode'}
             >
               <Laptop className="w-3.5 h-3.5" />
             </button>
@@ -358,7 +317,7 @@ export const DesktopSidebar: React.FC = () => {
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-bold text-slate-900 dark:text-white truncate group-hover:text-brand transition-colors">
-              {user.name}
+              {language === 'th' ? user.name : (user.nameEn || user.name)}
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
               <span className="text-[10px] text-slate-500 dark:text-slate-400">

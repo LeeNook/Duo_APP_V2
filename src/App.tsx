@@ -20,7 +20,7 @@ const MainLayout: React.FC = () => {
   const {
     currentRoute,
     setCurrentRoute,
-    previewDevice,
+    language,
     setSelectedCategoryId,
     setSelectedFacilityId,
     navigateToSuccess,
@@ -226,7 +226,11 @@ const MainLayout: React.FC = () => {
           </button>
           <button
             onClick={() =>
-              navigateToConfirm('A107', 'จันทร์ 26 ตุลาคม 2569', '14:00 - 15:00 น.')
+              navigateToConfirm(
+                'A107',
+                language === 'th' ? 'จันทร์ 26 ตุลาคม 2569' : 'Monday 26 Oct 2026',
+                '14:00 - 15:00 น.'
+              )
             }
             className={`px-2 py-1 rounded-lg transition-colors cursor-pointer ${
               currentRoute === 'confirm'

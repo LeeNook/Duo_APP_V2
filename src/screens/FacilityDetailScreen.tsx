@@ -35,7 +35,8 @@ import {
 interface FriendMember {
   id: string;
   initial: string;
-  name: string;
+  nameTh: string;
+  nameEn: string;
   role: 'leader' | 'member';
   color: string;
 }
@@ -48,6 +49,7 @@ export const FacilityDetailScreen: React.FC = () => {
     navigateToCategory,
     navigateToConfirm,
     language,
+    showToast,
   } = useApp();
 
   // Find facility or default to A107
@@ -69,15 +71,17 @@ export const FacilityDetailScreen: React.FC = () => {
   const [friends, setFriends] = useState<FriendMember[]>([
     {
       id: 'f-1',
-      initial: 'ณ',
-      name: 'ณัฐพล ภ.',
+      initial: 'N',
+      nameTh: 'ณัฐพล ภ.',
+      nameEn: 'Natthapol P.',
       role: 'leader',
       color: 'bg-blue-100 text-blue-800',
     },
     {
       id: 'f-2',
-      initial: 'ก',
-      name: 'กัญญารัตน์',
+      initial: 'K',
+      nameTh: 'กัญญารัตน์',
+      nameEn: 'Kanyarat M.',
       role: 'member',
       color: 'bg-orange-100 text-orange-800',
     },
@@ -85,13 +89,13 @@ export const FacilityDetailScreen: React.FC = () => {
 
   // 7-day date strip (October 2026, 25 Sun to 31 Sat)
   const daysList = [
-    { dayOfWeekTh: 'อา', dayOfWeekEn: 'Sun', dayOfMonth: 25, fullDateTh: 'วันอาทิตย์ 25 ต.ค.', fullDateEn: 'Sunday 25 Oct' },
-    { dayOfWeekTh: 'จ', dayOfWeekEn: 'Mon', dayOfMonth: 26, fullDateTh: 'วันจันทร์ 26 ต.ค.', fullDateEn: 'Monday 26 Oct' },
-    { dayOfWeekTh: 'อ', dayOfWeekEn: 'Tue', dayOfMonth: 27, fullDateTh: 'วันอังคาร 27 ต.ค.', fullDateEn: 'Tuesday 27 Oct' },
-    { dayOfWeekTh: 'พ', dayOfWeekEn: 'Wed', dayOfMonth: 28, fullDateTh: 'วันพุธ 28 ต.ค.', fullDateEn: 'Wednesday 28 Oct' },
-    { dayOfWeekTh: 'พฤ', dayOfWeekEn: 'Thu', dayOfMonth: 29, fullDateTh: 'วันพฤหัสบดี 29 ต.ค.', fullDateEn: 'Thursday 29 Oct' },
-    { dayOfWeekTh: 'ศ', dayOfWeekEn: 'Fri', dayOfMonth: 30, fullDateTh: 'วันศุกร์ 30 ต.ค.', fullDateEn: 'Friday 30 Oct' },
-    { dayOfWeekTh: 'ส', dayOfWeekEn: 'Sat', dayOfMonth: 31, fullDateTh: 'วันเสาร์ 31 ต.ค.', fullDateEn: 'Saturday 31 Oct' },
+    { dayOfWeekTh: 'อา', dayOfWeekEn: 'Sun', dayOfMonth: 25, fullDateTh: 'วันอาทิตย์ 25 ต.ค. 2569', fullDateEn: 'Sunday 25 Oct 2026' },
+    { dayOfWeekTh: 'จ', dayOfWeekEn: 'Mon', dayOfMonth: 26, fullDateTh: 'วันจันทร์ 26 ต.ค. 2569', fullDateEn: 'Monday 26 Oct 2026' },
+    { dayOfWeekTh: 'อ', dayOfWeekEn: 'Tue', dayOfMonth: 27, fullDateTh: 'วันอังคาร 27 ต.ค. 2569', fullDateEn: 'Tuesday 27 Oct 2026' },
+    { dayOfWeekTh: 'พ', dayOfWeekEn: 'Wed', dayOfMonth: 28, fullDateTh: 'วันพุธ 28 ต.ค. 2569', fullDateEn: 'Wednesday 28 Oct 2026' },
+    { dayOfWeekTh: 'พฤ', dayOfWeekEn: 'Thu', dayOfMonth: 29, fullDateTh: 'วันพฤหัสบดี 29 ต.ค. 2569', fullDateEn: 'Thursday 29 Oct 2026' },
+    { dayOfWeekTh: 'ศ', dayOfWeekEn: 'Fri', dayOfMonth: 30, fullDateTh: 'วันศุกร์ 30 ต.ค. 2569', fullDateEn: 'Friday 30 Oct 2026' },
+    { dayOfWeekTh: 'ส', dayOfWeekEn: 'Sat', dayOfMonth: 31, fullDateTh: 'วันเสาร์ 31 ต.ค. 2569', fullDateEn: 'Saturday 31 Oct 2026' },
   ];
 
   // Check if facility is closed on selected day according to KLLC, LAB, TENNIS constants
@@ -143,16 +147,16 @@ export const FacilityDetailScreen: React.FC = () => {
 
   // Add friend handler
   const handleAddFriend = () => {
-    const friendPool = [
-      { id: 'f-3', initial: 'ว', name: 'วรเมธ ส.', role: 'member' as const, color: 'bg-emerald-100 text-emerald-800' },
-      { id: 'f-4', initial: 'ป', name: 'ปิติพงษ์', role: 'member' as const, color: 'bg-purple-100 text-purple-800' },
-      { id: 'f-5', initial: 'ธ', name: 'ธนกฤต', role: 'member' as const, color: 'bg-cyan-100 text-cyan-800' },
+    const friendPool: FriendMember[] = [
+      { id: 'f-3', initial: 'W', nameTh: 'วรเมธ ส.', nameEn: 'Worameth S.', role: 'member', color: 'bg-emerald-100 text-emerald-800' },
+      { id: 'f-4', initial: 'P', nameTh: 'ปิติพงษ์', nameEn: 'Pitipong T.', role: 'member', color: 'bg-purple-100 text-purple-800' },
+      { id: 'f-5', initial: 'T', nameTh: 'ธนกฤต', nameEn: 'Thanakrit K.', role: 'member', color: 'bg-cyan-100 text-cyan-800' },
     ];
     const nextFriend = friendPool.find((candidate) => !friends.some((f) => f.id === candidate.id));
     if (nextFriend) {
       setFriends([...friends, nextFriend]);
     } else {
-      alert(language === 'th' ? 'เพิ่มเพื่อนร่วมกลุ่มครบจำนวนแล้ว' : 'Maximum group members added');
+      showToast(language === 'th' ? 'เพิ่มเพื่อนร่วมกลุ่มครบจำนวนแล้ว' : 'Maximum group members added');
     }
   };
 
@@ -163,18 +167,26 @@ export const FacilityDetailScreen: React.FC = () => {
   // Proceed to Step 2: Confirmation Screen
   const handleConfirmBooking = () => {
     if (isFacilityClosedToday) {
-      alert(language === 'th' ? 'สถานที่ปิดให้บริการในวันนี้ กรุณาเลือกวันอื่น' : 'Facility is closed today. Please select another date.');
+      showToast(language === 'th' ? 'สถานที่ปิดให้บริการในวันนี้ กรุณาเลือกวันอื่น' : 'Facility is closed today. Please select another date.');
       return;
     }
 
     if (!selectedSlotTime) {
-      alert(language === 'th' ? 'กรุณาเลือกรอบเวลาที่ต้องการจอง' : 'Please select a reservation time slot');
+      showToast(language === 'th' ? 'กรุณาเลือกรอบเวลาที่ต้องการจอง' : 'Please select a reservation time slot');
       return;
     }
 
     const currentDay = daysList[selectedDayIndex];
-    navigateToConfirm(facility.id, currentDay.fullDateTh, selectedSlotTime, facility.durationLimitTh);
+    const formattedDate = language === 'th' ? currentDay.fullDateTh : currentDay.fullDateEn;
+    const formattedDuration = language === 'th' ? facility.durationLimitTh : (facility.durationLimitEn || facility.durationLimitTh);
+    navigateToConfirm(facility.id, formattedDate, selectedSlotTime, formattedDuration);
   };
+
+  const displayName = language === 'th' ? facility.nameTh : (facility.nameEn || facility.nameTh);
+  const displayLocation = language === 'th' ? facility.locationTh : (facility.locationEn || facility.locationTh);
+  const displayCapacity = language === 'th' ? facility.capacityLabelTh : (facility.capacityLabelEn || facility.capacityLabelTh);
+  const displaySpecs = (language === 'th' ? facility.specsTh : (facility.specsEn || facility.specsTh)) || [];
+  const displayRules = (language === 'th' ? facility.rulesTh : (facility.rulesEn || facility.rulesTh)) || [];
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-36 lg:pb-24">
@@ -190,7 +202,7 @@ export const FacilityDetailScreen: React.FC = () => {
           <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-900">
             <img
               src={images[activePhotoIndex]}
-              alt={facility.nameTh}
+              alt={displayName}
               className="w-full h-full object-cover transition-all duration-300"
             />
 
@@ -199,7 +211,7 @@ export const FacilityDetailScreen: React.FC = () => {
               <button
                 onClick={() => {
                   navigator.clipboard?.writeText(window.location.href);
-                  alert(language === 'th' ? 'คัดลอกลิงก์สถานที่แล้ว!' : 'Facility link copied!');
+                  showToast(language === 'th' ? 'คัดลอกลิงก์สถานที่แล้ว!' : 'Facility link copied!');
                 }}
                 className="w-9 h-9 rounded-full bg-white/85 hover:bg-white text-slate-800 backdrop-blur-md flex items-center justify-center shadow-md transition-transform hover:scale-105 active:scale-95 cursor-pointer"
                 aria-label={language === 'th' ? 'แชร์' : 'Share'}
@@ -224,7 +236,7 @@ export const FacilityDetailScreen: React.FC = () => {
             <div className="absolute bottom-3 left-3">
               <div className="badge-on-colored px-3 py-1 rounded-full text-xs font-bold text-slate-800 flex items-center gap-1.5 shadow-md">
                 <Users className="w-3.5 h-3.5 text-slate-600" />
-                <span>{language === 'th' ? facility.capacityLabelTh : (facility.capacityLabelEn || facility.capacityLabelTh)}</span>
+                <span>{displayCapacity}</span>
               </div>
             </div>
 
@@ -256,11 +268,11 @@ export const FacilityDetailScreen: React.FC = () => {
           <div className="flex items-start justify-between gap-2">
             <div>
               <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">
-                {language === 'th' ? facility.nameTh : (facility.nameEn || facility.nameTh)}
+                {displayName}
               </h2>
               <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 mt-1">
                 <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                <span>{language === 'th' ? facility.locationTh : (facility.locationEn || facility.locationTh)}</span>
+                <span>{displayLocation}</span>
               </div>
             </div>
 
@@ -271,22 +283,36 @@ export const FacilityDetailScreen: React.FC = () => {
 
           {/* Spec Pills Row */}
           <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <Clock className="w-3.5 h-3.5 text-orange-600" />
-              <span>{language === 'th' ? '1 ชม./ครั้ง' : '1 hr/time'}</span>
-            </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <RotateCcw className="w-3.5 h-3.5 text-blue-600" />
-              <span>{language === 'th' ? '3 ครั้ง/วัน' : '3 times/day'}</span>
-            </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <Tv className="w-3.5 h-3.5 text-purple-600" />
-              <span>Smart TV</span>
-            </span>
-            <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-              <PenTool className="w-3.5 h-3.5 text-emerald-600" />
-              <span>{language === 'th' ? 'กระดานไวท์บอร์ด' : 'Whiteboard'}</span>
-            </span>
+            {displaySpecs.length > 0 ? (
+              displaySpecs.map((spec, sIdx) => (
+                <span
+                  key={sIdx}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                >
+                  <Clock className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+                  <span>{spec}</span>
+                </span>
+              ))
+            ) : (
+              <>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <Clock className="w-3.5 h-3.5 text-orange-600 dark:text-orange-400" />
+                  <span>{language === 'th' ? '1 ชม./ครั้ง' : '1 hr/slot'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <RotateCcw className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>{language === 'th' ? '3 ครั้ง/วัน' : '3 slots/day'}</span>
+                </span>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <Tv className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+                  <span>Smart TV</span>
+                </span>
+                <span className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                  <PenTool className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                  <span>{language === 'th' ? 'กระดานไวท์บอร์ด' : 'Whiteboard'}</span>
+                </span>
+              </>
+            )}
           </div>
         </section>
 
@@ -303,30 +329,41 @@ export const FacilityDetailScreen: React.FC = () => {
               </h3>
             </div>
             {isRulesOpen ? (
-              <ChevronUp className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors" />
+              <ChevronUp className="w-4 h-4 text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-colors" />
+              <ChevronDown className="w-4 h-4 text-slate-400 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors" />
             )}
           </button>
 
           {isRulesOpen && (
             <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs text-slate-600 dark:text-slate-300">
-              <div className="flex items-center gap-2">
-                <span className="text-red-500 font-bold">🚫</span>
-                <span>{language === 'th' ? 'งดนำอาหารและเครื่องดื่ม' : 'No outside food and drinks'}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-amber-500 font-bold">⏱</span>
-                <span>{language === 'th' ? 'มาช้าเกิน 15 นาที ตัดสิทธิ์' : 'Late by >15 mins forfeits reservation'}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-blue-500 font-bold">👥</span>
-                <span>{language === 'th' ? 'ผู้ใช้งานตั้งแต่ 3 คนขึ้นไป' : '3 or more people required'}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-emerald-500 font-bold">⏰</span>
-                <span>{language === 'th' ? 'เปิด จ-ศ 09:00-19:00 และ ส-อา 09:00-16:00' : 'Open Mon-Fri 09:00-19:00 & Sat-Sun 09:00-16:00'}</span>
-              </div>
+              {displayRules.length > 0 ? (
+                displayRules.map((rule, rIdx) => (
+                  <div key={rIdx} className="flex items-center gap-2">
+                    <span className="text-orange-500 font-bold">•</span>
+                    <span>{rule}</span>
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div className="flex items-center gap-2">
+                    <span className="text-red-500 font-bold">🚫</span>
+                    <span>{language === 'th' ? 'งดนำอาหารและเครื่องดื่ม' : 'No outside food and drinks'}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-amber-500 font-bold">⏱</span>
+                    <span>{language === 'th' ? 'มาช้าเกิน 15 นาที ตัดสิทธิ์' : 'Late by >15 mins forfeits reservation'}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-blue-500 font-bold">👥</span>
+                    <span>{language === 'th' ? 'ผู้ใช้งานตั้งแต่ 3 คนขึ้นไป' : '3 or more people required'}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-emerald-500 font-bold">⏰</span>
+                    <span>{language === 'th' ? 'เปิด จ-ศ 09:00-19:00 และ ส-อา 09:00-16:00' : 'Open Mon-Fri 09:00-19:00 & Sat-Sun 09:00-16:00'}</span>
+                  </div>
+                </>
+              )}
             </div>
           )}
         </section>
@@ -342,7 +379,7 @@ export const FacilityDetailScreen: React.FC = () => {
                 onClick={() =>
                   setSelectedDayIndex((prev) => Math.max(0, prev - 1))
                 }
-                className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 cursor-pointer"
+                className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
                 title={language === 'th' ? 'ก่อนหน้า' : 'Previous'}
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -353,7 +390,7 @@ export const FacilityDetailScreen: React.FC = () => {
                     Math.min(daysList.length - 1, prev + 1)
                   )
                 }
-                className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 cursor-pointer"
+                className="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
                 title={language === 'th' ? 'ถัดไป' : 'Next'}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -379,7 +416,7 @@ export const FacilityDetailScreen: React.FC = () => {
                 >
                   <span
                     className={`text-[10px] font-medium ${
-                      isSelected ? 'text-white/85' : 'text-slate-400'
+                      isSelected ? 'text-white/85' : 'text-slate-400 dark:text-slate-400'
                     }`}
                   >
                     {language === 'th' ? day.dayOfWeekTh : day.dayOfWeekEn}
@@ -407,7 +444,7 @@ export const FacilityDetailScreen: React.FC = () => {
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
               {language === 'th' ? 'เลือกรอบเวลา' : 'Select Time Slot'}{' '}
               <span className="text-xs font-normal text-slate-400">
-                ({language === 'th' ? '1 ชม./ครั้ง' : '1 hr/slot'})
+                ({language === 'th' ? facility.durationLimitTh : (facility.durationLimitEn || facility.durationLimitTh)})
               </span>
             </h3>
             <span
@@ -431,7 +468,7 @@ export const FacilityDetailScreen: React.FC = () => {
                 const unavailableReason = isFacilityClosedToday
                   ? (language === 'th' ? 'ปิดทำการ' : 'Closed')
                   : slot.reason
-                  ? slot.reason
+                  ? (language === 'th' ? slot.reason : (slot.reasonEn || 'Unavailable'))
                   : slot.ratioLabel
                   ? (language === 'th' ? `ไม่ว่าง (${slot.ratioLabel})` : `Full (${slot.ratioLabel})`)
                   : (language === 'th' ? 'ไม่ว่าง (0/1)' : 'Full (0/1)');
@@ -457,7 +494,7 @@ export const FacilityDetailScreen: React.FC = () => {
                 : slot.ratioLabel
                 ? (language === 'th' ? `ว่าง (${slot.ratioLabel})` : `Available (${slot.ratioLabel})`)
                 : slot.label
-                ? slot.label
+                ? (language === 'th' ? slot.label : (slot.labelEn || slot.label))
                 : (language === 'th' ? 'ว่าง (0/1)' : 'Available (0/1)');
 
               return (
@@ -497,7 +534,7 @@ export const FacilityDetailScreen: React.FC = () => {
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">
               {language === 'th' ? 'ชวนเพื่อนร่วมใช้งาน (Invite friend)' : 'Invite Teammates'}
             </h3>
-            <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+            <span className="text-xs text-slate-400 dark:text-slate-400 font-medium">
               {language === 'th' ? 'ขั้นต่ำ 3 คน' : 'Minimum 3 people'}
             </span>
           </div>
@@ -515,9 +552,9 @@ export const FacilityDetailScreen: React.FC = () => {
                 </span>
                 <div>
                   <span className="font-bold text-slate-800 dark:text-slate-200">
-                    {friend.name}
+                    {language === 'th' ? friend.nameTh : friend.nameEn}
                   </span>
-                  <span className="text-[10px] text-slate-400 ml-1">
+                  <span className="text-[10px] text-slate-400 dark:text-slate-400 ml-1">
                     {friend.role === 'leader'
                       ? (language === 'th' ? '(ผู้จองหลัก)' : '(Host)')
                       : (language === 'th' ? '(สมาชิก)' : '(Member)')}
@@ -550,7 +587,7 @@ export const FacilityDetailScreen: React.FC = () => {
       <div className="fixed bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 transition-colors">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2.5">
           <div className="flex items-center justify-between text-xs">
-            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 font-semibold">
+            <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-semibold">
               <Calendar className="w-4 h-4 text-orange-600 dark:text-orange-400" />
               <span>
                 {language === 'th'

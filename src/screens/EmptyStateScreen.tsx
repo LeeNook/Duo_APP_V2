@@ -11,7 +11,7 @@ import { useApp } from '../context/AppContext';
 import { TopBar } from '../components/common/TopBar';
 
 export const EmptyStateScreen: React.FC = () => {
-  const { setCurrentRoute, navigateToFacility, language } = useApp();
+  const { setCurrentRoute, navigateToFacility, language, showToast } = useApp();
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -88,7 +88,7 @@ export const EmptyStateScreen: React.FC = () => {
 
           <div className="text-center">
             <button
-              onClick={() => alert(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
+              onClick={() => showToast(language === 'th' ? 'ตารางเวลาการเปิดทำการทั้งหมดของสัปดาห์นี้' : 'All facility opening hours for this week')}
               className="text-xs font-bold underline flex items-center justify-center gap-1 mx-auto cursor-pointer"
               style={{ color: 'var(--brand-strong)' }}
             >
@@ -107,7 +107,7 @@ export const EmptyStateScreen: React.FC = () => {
                 {language === 'th' ? 'ห้องว่างที่แนะนำ' : 'Recommended Rooms'}
               </h4>
             </div>
-            <span className="text-[11px] text-slate-400 dark:text-slate-500">
+            <span className="text-[11px] text-slate-400 dark:text-slate-400">
               {language === 'th' ? 'อัปเดตแบบเรียลไทม์' : 'Live Updated'}
             </span>
           </div>

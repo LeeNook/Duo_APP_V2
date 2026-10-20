@@ -10,7 +10,7 @@ import { useApp } from '../context/AppContext';
 import { DuoLogo } from '../components/common/DuoLogo';
 
 export const SplashScreen: React.FC = () => {
-  const { setCurrentRoute } = useApp();
+  const { setCurrentRoute, language } = useApp();
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-between p-6 bg-gradient-to-b from-orange-50/40 via-slate-50 to-orange-50/20 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
@@ -48,7 +48,7 @@ export const SplashScreen: React.FC = () => {
           Duo_APP
         </h1>
         <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-8 text-center">
-          ระบบจองห้องและอุปกรณ์วิจัย KMITL
+          {language === 'th' ? 'ระบบจองห้องและอุปกรณ์วิจัย KMITL' : 'KMITL Academic & Facility Booking Hub'}
         </p>
 
         {/* Notice Card */}
@@ -68,18 +68,20 @@ export const SplashScreen: React.FC = () => {
             </div>
             <div>
               <h3 className="font-bold text-slate-900 dark:text-white text-base">
-                ประกาศแจ้งเตือนการใช้งาน
+                {language === 'th' ? 'ประกาศแจ้งเตือนการใช้งาน' : 'Prototype Notice'}
               </h3>
             </div>
           </div>
 
           <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-4 pl-1">
-            นี่คือต้นแบบสำหรับทดสอบ ข้อมูลทั้งหมดเป็นข้อมูลจำลอง การจองไม่มีผลกับห้องจริง
+            {language === 'th'
+              ? 'นี่คือต้นแบบสำหรับทดสอบ ข้อมูลทั้งหมดเป็นข้อมูลจำลอง การจองไม่มีผลกับห้องจริง'
+              : 'This is an interactive prototype. All data is simulated for testing and demonstration.'}
           </p>
 
           <div className="flex items-center justify-end gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
             <Calendar className="w-4 h-4" />
-            <span>พ.ศ. 2569</span>
+            <span>{language === 'th' ? 'พ.ศ. 2569' : '2026'}</span>
           </div>
         </div>
 
@@ -89,7 +91,7 @@ export const SplashScreen: React.FC = () => {
           className="w-full mt-6 py-4 px-6 rounded-2xl text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-brand/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           style={{ backgroundColor: 'var(--brand-strong)' }}
         >
-          <span>เริ่มใช้งาน</span>
+          <span>{language === 'th' ? 'เริ่มใช้งาน' : 'Get Started'}</span>
           <ArrowRight className="w-5 h-5 stroke-[2.5]" />
         </button>
       </div>

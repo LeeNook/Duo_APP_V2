@@ -24,6 +24,7 @@ export const SuccessESlipScreen: React.FC = () => {
     setCurrentRoute,
     navigateToHistory,
     language,
+    showToast,
   } = useApp();
 
   const ticket = lastCreatedBooking;
@@ -33,13 +34,15 @@ export const SuccessESlipScreen: React.FC = () => {
   if (!ticket) {
     return (
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 p-6 flex flex-col items-center justify-center">
-        <p className="text-sm text-slate-500 mb-4">ไม่พบข้อมูลบัตรจอง</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+          {language === 'th' ? 'ไม่พบข้อมูลบัตรจอง' : 'No booking ticket found'}
+        </p>
         <button
           onClick={() => setCurrentRoute('booking')}
-          className="px-4 py-2 rounded-xl text-white font-bold text-xs"
+          className="px-4 py-2 rounded-xl text-white font-bold text-xs shadow-md transition-all cursor-pointer"
           style={{ backgroundColor: 'var(--brand-strong)' }}
         >
-          กลับไปที่หน้าจอง
+          {language === 'th' ? 'กลับไปที่หน้าจอง' : 'Back to Booking Hub'}
         </button>
       </div>
     );
@@ -52,8 +55,18 @@ export const SuccessESlipScreen: React.FC = () => {
   };
 
   const handleAddToCalendar = () => {
-    alert(`เพิ่ม "${ticket.locationCode}" ลงใน Google / Apple Calendar เรียบร้อยแล้ว!`);
+    showToast(
+      language === 'th'
+        ? `เพิ่ม "${ticket.locationCode}" ลงใน Google / Apple Calendar เรียบร้อยแล้ว!`
+        : `Added "${ticket.locationCode}" to Google / Apple Calendar successfully!`
+    );
   };
+
+  const displayLocation = language === 'th' ? ticket.locationNameTh : (ticket.locationNameEn || ticket.locationNameTh);
+  const displayDate = language === 'th' ? ticket.dateTh : (ticket.dateEn || ticket.dateTh);
+  const displayTime = language === 'th' ? ticket.timeRangeTh : (ticket.timeRangeEn || ticket.timeRangeTh);
+  const displayDuration = language === 'th' ? ticket.durationLabelTh : (ticket.durationLabelEn || ticket.durationLabelTh);
+  const displayEquipment = language === 'th' ? ticket.equipmentTh : (ticket.equipmentEn || ticket.equipmentTh);
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-20 lg:pb-12">
@@ -80,7 +93,7 @@ export const SuccessESlipScreen: React.FC = () => {
           </p>
         </div>
 
-        {/* 2. Ticket Pass Card (CRITICAL: NO QR CODE) */}
+        {/* 2. Ticket Pass Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-lg border border-slate-100 dark:border-slate-800 overflow-hidden relative">
           {/* Ticket Header Bar */}
           <div
@@ -106,7 +119,7 @@ export const SuccessESlipScreen: React.FC = () => {
               {ticket.locationCode}
             </h3>
             <p className="text-xs opacity-90 truncate">
-              📍 {ticket.locationNameTh}
+              📍 {displayLocation}
             </p>
           </div>
 
@@ -119,7 +132,7 @@ export const SuccessESlipScreen: React.FC = () => {
 
           {/* Ticket Body: Secret Door / Machine Unlock Code */}
           <div className="p-5 pt-1 space-y-4">
-            <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-slate-800/80 border border-blue-100/60 dark:border-slate-700 text-center space-y-2.5">
+            <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-slate-800 border border-blue-100/60 dark:border-slate-700 text-center space-y-2.5">
               <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-300">
                 <Lock className="w-4 h-4 text-orange-600 dark:text-orange-400" />
                 <span>{language === 'th' ? 'รหัสปลดล็อกประตู / เครื่อง' : 'Door / Equipment Access PIN'}</span>
@@ -142,7 +155,7 @@ export const SuccessESlipScreen: React.FC = () => {
               <div className="flex items-center justify-center gap-2 pt-1">
                 <button
                   onClick={() => setShowPin(!showPin)}
-                  className="px-3 py-1.5 rounded-full bg-blue-100/80 dark:bg-slate-700 hover:bg-blue-200 text-blue-800 dark:text-blue-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-blue-100/80 dark:bg-slate-700 hover:bg-blue-200 dark:hover:bg-slate-600 text-blue-800 dark:text-blue-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   {showPin ? (
                     <>
@@ -159,11 +172,11 @@ export const SuccessESlipScreen: React.FC = () => {
 
                 <button
                   onClick={handleCopyPin}
-                  className="px-3 py-1.5 rounded-full bg-orange-100/80 dark:bg-orange-950/60 hover:bg-orange-200 text-orange-800 dark:text-orange-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                  className="px-3 py-1.5 rounded-full bg-orange-100/80 dark:bg-orange-950/60 hover:bg-orange-200 dark:hover:bg-orange-900/60 text-orange-800 dark:text-orange-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
                       <span>{language === 'th' ? 'คัดลอกแล้ว' : 'Copied'}</span>
                     </>
                   ) : (
@@ -175,10 +188,10 @@ export const SuccessESlipScreen: React.FC = () => {
                 </button>
               </div>
 
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-slate-400 dark:text-slate-400">
                 {language === 'th'
-                  ? `* รหัสนี้ใช้ได้เฉพาะช่วงเวลา ${ticket.timeRangeTh}`
-                  : `* This PIN is valid only during ${ticket.timeRangeTh}`}
+                  ? `* รหัสนี้ใช้ได้เฉพาะช่วงเวลา ${displayTime}`
+                  : `* This PIN is valid only during ${displayTime}`}
               </p>
             </div>
 
@@ -190,7 +203,7 @@ export const SuccessESlipScreen: React.FC = () => {
                   <span>{language === 'th' ? 'ผู้ขอใช้' : 'Applicant'}</span>
                 </div>
                 <span className="font-bold text-slate-800 dark:text-slate-200">
-                  {user.name} {user.studentId}
+                  {language === 'th' ? user.name : (user.nameEn || user.name)} {user.studentId}
                 </span>
               </div>
 
@@ -201,22 +214,22 @@ export const SuccessESlipScreen: React.FC = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-slate-800 dark:text-slate-200">
-                    {ticket.dateTh}
+                    {displayDate}
                   </p>
-                  <p className="text-[11px] text-slate-500">
-                    {ticket.timeRangeTh} ({ticket.durationLabelTh})
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {displayTime} ({displayDuration})
                   </p>
                 </div>
               </div>
 
-              {ticket.equipmentTh && (
+              {displayEquipment && (
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
                     <Cpu className="w-4 h-4" />
                     <span>{language === 'th' ? 'อุปกรณ์' : 'Equipment'}</span>
                   </div>
                   <span className="font-bold text-slate-800 dark:text-slate-200">
-                    {ticket.equipmentTh}
+                    {displayEquipment}
                   </span>
                 </div>
               )}
@@ -249,7 +262,7 @@ export const SuccessESlipScreen: React.FC = () => {
 
           <button
             onClick={navigateToHistory}
-            className="w-full py-3.5 px-6 rounded-2xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 text-blue-700 dark:text-blue-300 font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer border border-blue-100 dark:border-slate-700"
+            className="w-full py-3.5 px-6 rounded-2xl bg-blue-50 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-slate-700 text-blue-700 dark:text-blue-300 font-bold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer border border-blue-100 dark:border-slate-700"
           >
             <History className="w-4 h-4" />
             <span>{language === 'th' ? 'ดูประวัติการจอง' : 'View Booking History'}</span>

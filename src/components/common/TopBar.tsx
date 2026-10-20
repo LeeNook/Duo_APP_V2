@@ -11,12 +11,14 @@ interface TopBarProps {
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
-  title = 'หน้าหลัก',
+  title,
   showBack = false,
   onBack,
   subtitle = 'KMITL ACADEMIC HUB',
 }) => {
-  const { currentRoute, setCurrentRoute, user, language } = useApp();
+  const { currentRoute, setCurrentRoute, user, language, showToast } = useApp();
+
+  const displayTitle = title ?? (language === 'th' ? 'หน้าหลัก' : 'Home');
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 transition-colors">
@@ -26,7 +28,7 @@ export const TopBar: React.FC<TopBarProps> = ({
             <button
               onClick={onBack || (() => setCurrentRoute('home'))}
               className="p-2 -ml-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-              aria-label="ย้อนกลับ"
+              aria-label={language === 'th' ? 'ย้อนกลับ' : 'Back'}
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
@@ -49,7 +51,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               </p>
             )}
             <h1 className="text-base font-bold text-slate-900 dark:text-white leading-tight">
-              {title}
+              {displayTitle}
             </h1>
           </div>
         </div>
@@ -58,9 +60,9 @@ export const TopBar: React.FC<TopBarProps> = ({
         <div className="flex items-center gap-2">
           {!showBack && (
             <button
-              onClick={() => alert(language === 'th' ? 'ไม่มีการแจ้งเตือนใหม่' : 'No new notifications')}
+              onClick={() => showToast(language === 'th' ? 'ไม่มีการแจ้งเตือนใหม่' : 'No new notifications')}
               className="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-              aria-label="การแจ้งเตือน"
+              aria-label={language === 'th' ? 'การแจ้งเตือน' : 'Notifications'}
             >
               <Bell className="w-5 h-5" />
               <span
@@ -79,7 +81,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               borderColor: 'var(--brand)',
               outlineColor: 'var(--brand)',
             }}
-            title="ไปที่การตั้งค่า"
+            title={language === 'th' ? 'ไปที่การตั้งค่า' : 'Go to Settings'}
           >
             {showBack ? (
               <div
@@ -92,7 +94,7 @@ export const TopBar: React.FC<TopBarProps> = ({
               <div className="relative">
                 <img
                   src={user.avatarUrl}
-                  alt={user.name}
+                  alt={language === 'th' ? user.name : (user.nameEn || user.name)}
                   className="w-9 h-9 rounded-full object-cover border-2 border-white dark:border-slate-800 shadow-sm"
                 />
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-800" />

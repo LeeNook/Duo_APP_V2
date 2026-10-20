@@ -34,39 +34,51 @@ export const SettingsScreen: React.FC = () => {
     setNotify15Min,
     notifyRoomAvailable,
     setNotifyRoomAvailable,
+    showToast,
   } = useApp();
 
   const themeOptions: {
     id: ThemeColor;
-    name: string;
+    nameTh: string;
+    nameEn: string;
     hex: string;
     color: string;
   }[] = [
     {
       id: 'orange',
-      name: 'KMITL Orange',
+      nameTh: 'ส้ม KMITL',
+      nameEn: 'KMITL Orange',
       hex: '#E35205',
       color: '#E35205',
     },
     {
       id: 'blue',
-      name: 'Academic Blue',
+      nameTh: 'น้ำเงินวิชาการ',
+      nameEn: 'Academic Blue',
       hex: '#2563EB',
       color: '#2563EB',
     },
     {
       id: 'green',
-      name: 'Emerald Green',
+      nameTh: 'เขียวมรกต',
+      nameEn: 'Emerald Green',
       hex: '#059669',
       color: '#059669',
     },
     {
       id: 'purple',
-      name: 'Deep Purple',
+      nameTh: 'ม่วงเข้ม',
+      nameEn: 'Deep Purple',
       hex: '#7C3AED',
       color: '#7C3AED',
     },
   ];
+
+  const displayName = language === 'th' ? user.name : (user.nameEn || user.name);
+  const displayDegree = language === 'th' ? user.degree : (user.degreeEn || user.degree);
+  const displayFacultyDept = language === 'th'
+    ? `${user.faculty} ${user.department}`
+    : `${user.facultyEn || user.faculty} • ${user.departmentEn || user.department}`;
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-28 lg:pb-12">
@@ -84,7 +96,7 @@ export const SettingsScreen: React.FC = () => {
               <div className="relative shrink-0">
                 <img
                   src={user.avatarUrl}
-                  alt={user.name}
+                  alt={displayName}
                   className="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-800 shadow-md"
                 />
                 <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-900" />
@@ -92,11 +104,11 @@ export const SettingsScreen: React.FC = () => {
 
               <div>
                 <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                  {user.name}
+                  {displayName}
                 </h2>
                 <div className="mt-1 flex items-center gap-2">
                   <span className="inline-block px-2.5 py-0.5 text-[10px] font-semibold rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-400">
-                    {user.degree}
+                    {displayDegree}
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -106,7 +118,7 @@ export const SettingsScreen: React.FC = () => {
             </div>
 
             <button
-              onClick={() => alert(language === 'th' ? 'แก้ไขข้อมูลโปรไฟล์' : 'Edit profile info')}
+              onClick={() => showToast(language === 'th' ? 'แก้ไขข้อมูลโปรไฟล์' : 'Edit profile info')}
               className="w-9 h-9 rounded-2xl bg-blue-50 dark:bg-slate-800 text-blue-600 dark:text-blue-400 flex items-center justify-center hover:scale-105 active:scale-95 transition-all cursor-pointer"
               title={language === 'th' ? 'แก้ไขโปรไฟล์' : 'Edit Profile'}
             >
@@ -115,10 +127,10 @@ export const SettingsScreen: React.FC = () => {
           </div>
 
           {/* Faculty / Department banner */}
-          <div className="p-3 rounded-2xl bg-blue-50/70 dark:bg-slate-800/80 border border-blue-100/60 dark:border-slate-700/60 flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+          <div className="p-3 rounded-2xl bg-blue-50/70 dark:bg-slate-800 border border-blue-100/60 dark:border-slate-700 flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-200">
             <GraduationCap className="w-4 h-4 text-orange-600 dark:text-orange-400 shrink-0" />
             <span className="font-medium truncate">
-              {user.faculty} {user.department}
+              {displayFacultyDept}
             </span>
           </div>
         </section>
@@ -174,7 +186,7 @@ export const SettingsScreen: React.FC = () => {
                 {language === 'th' ? 'สีธีมหลัก (Theme Color)' : 'Theme Color'}
               </h3>
             </div>
-            <span className="text-xs text-slate-400 dark:text-slate-500">
+            <span className="text-xs text-slate-400 dark:text-slate-400">
               {language === 'th' ? '4 ตัวเลือก' : '4 Options'}
             </span>
           </div>
@@ -182,6 +194,7 @@ export const SettingsScreen: React.FC = () => {
           <div className="grid grid-cols-2 gap-3">
             {themeOptions.map((opt) => {
               const isSelected = theme === opt.id;
+              const nameLabel = language === 'th' ? opt.nameTh : opt.nameEn;
               return (
                 <button
                   key={opt.id}
@@ -201,9 +214,9 @@ export const SettingsScreen: React.FC = () => {
 
                   <div>
                     <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                      {opt.name}
+                      {nameLabel}
                     </h4>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <span className="text-[10px] text-slate-400 dark:text-slate-400 font-mono">
                       {opt.hex}
                     </span>
                   </div>
@@ -372,7 +385,7 @@ export const SettingsScreen: React.FC = () => {
             <div className="border-t border-slate-100 dark:border-slate-800" />
 
             <button
-              onClick={() => alert(language === 'th' ? 'นโยบายความเป็นส่วนตัว KMITL Academic Data' : 'KMITL Academic Privacy Policy')}
+              onClick={() => showToast(language === 'th' ? 'นโยบายความเป็นส่วนตัว KMITL Academic Data' : 'KMITL Academic Privacy Policy')}
               className="w-full flex items-center justify-between text-left cursor-pointer group"
             >
               <div className="flex items-center gap-2.5 text-xs text-slate-700 dark:text-slate-300">

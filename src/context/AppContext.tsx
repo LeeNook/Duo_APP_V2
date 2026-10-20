@@ -236,7 +236,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Booking confirmation logic
   const confirmBooking = (notes: string, selectedTags: string[]): BookingTicket | null => {
     if (quota.remainingToday <= 0) {
-      alert('คุณใช้สิทธิ์การจองประจำวันครบตามกำหนดแล้ว (3 ครั้ง/วัน)');
+      showToast(
+        language === 'th'
+          ? 'คุณใช้สิทธิ์การจองประจำวันครบตามกำหนดแล้ว (3 ครั้ง/วัน)'
+          : 'You have reached your daily booking quota (3 times/day)'
+      );
       return null;
     }
 
@@ -257,21 +261,28 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       id: newId,
       facilityId: facility.id,
       type: facility.category === 'sports' ? 'ศูนย์กีฬา / สนาม' : facility.nameTh,
+      typeEn: facility.category === 'sports' ? 'Sports Center / Court' : (facility.nameEn || facility.nameTh),
       locationCode: facility.code,
       locationNameTh: `${facility.buildingTh}`,
-      locationNameEn: facility.nameEn,
+      locationNameEn: facility.nameEn || facility.buildingEn,
       dateTh: draftBooking.dateTh,
+      dateEn: draftBooking.dateTh,
       timeRangeTh: draftBooking.timeRangeTh,
+      timeRangeEn: draftBooking.timeRangeTh,
       durationLabelTh: draftBooking.durationLabelTh || facility.durationLimitTh,
+      durationLabelEn: facility.durationLimitEn || facility.durationLimitTh,
       checkInMethodTh: 'เช็คอินด้วยบัตรนักศึกษา',
+      checkInMethodEn: 'Check-in with Student ID',
       unlockPin: pin,
       equipmentTh: facility.specsTh ? facility.specsTh.slice(0, 2).join(' • ') : undefined,
+      equipmentEn: facility.specsEn ? facility.specsEn.slice(0, 2).join(' • ') : undefined,
       notes,
       selectedTags,
       lateMin: facility.lateMin ?? 15,
       noEquipment: facility.noEquipment ?? false,
       status: 'confirmed',
       statusLabelTh: 'ยืนยันแล้ว',
+      statusLabelEn: 'Confirmed',
       category: facility.category,
     };
 
@@ -330,7 +341,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     closeCancelModal();
-    showToast(`ยกเลิกการจอง ${locCode} สำเร็จ • คืนสิทธิ์ +1 เรียบร้อย`);
+    showToast(
+      language === 'th'
+        ? `ยกเลิกการจอง ${locCode} สำเร็จ • คืนสิทธิ์ +1 เรียบร้อย`
+        : `Cancelled booking for ${locCode} • +1 quota refunded`
+    );
   };
 
   // Rating bottom sheet methods
@@ -370,7 +385,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       )
     );
     closeRatingSheet();
-    showToast('ขอบคุณสำหรับความคิดเห็นและการให้คะแนน!');
+    showToast(
+      language === 'th'
+        ? 'ขอบคุณสำหรับความคิดเห็นและการให้คะแนน!'
+        : 'Thank you for your feedback and rating!'
+    );
   };
 
   return (

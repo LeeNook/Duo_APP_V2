@@ -75,14 +75,20 @@ export const ViewReviewModal: React.FC = () => {
             className="w-14 h-14 rounded-xl object-cover shrink-0"
           />
           <div className="min-w-0 flex-1">
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/50 text-orange-700 dark:text-orange-300">
-              {viewingReviewBooking.categoryTh}
+            <span
+              className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+              style={{
+                backgroundColor: 'var(--brand-light)',
+                color: 'var(--brand-strong)',
+              }}
+            >
+              {language === 'th' ? viewingReviewBooking.categoryTh : (viewingReviewBooking.categoryEn || viewingReviewBooking.categoryTh)}
             </span>
             <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate mt-1">
-              {viewingReviewBooking.roomName}
+              {language === 'th' ? viewingReviewBooking.roomName : (viewingReviewBooking.roomNameEn || viewingReviewBooking.roomName)}
             </h4>
-            <p className="text-xs text-slate-400 dark:text-slate-500 truncate mt-0.5">
-              {viewingReviewBooking.dateTh} • {viewingReviewBooking.timeRangeTh}
+            <p className="text-xs text-slate-400 dark:text-slate-400 truncate mt-0.5">
+              {(language === 'th' ? viewingReviewBooking.dateTh : (viewingReviewBooking.dateEn || viewingReviewBooking.dateTh))} • {(language === 'th' ? viewingReviewBooking.timeRangeTh : (viewingReviewBooking.timeRangeEn || viewingReviewBooking.timeRangeTh))}
             </p>
           </div>
         </div>
