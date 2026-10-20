@@ -1,0 +1,6 @@
+{
+  "name": "Duo_APP",
+  "description": "ระบบจองห้องและอุปกรณ์วิจัย KMITL - KMITL Academic & Facility Booking Hub",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
