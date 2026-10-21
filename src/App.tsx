@@ -110,9 +110,9 @@ const MainLayout: React.FC = () => {
 
   // CRITICAL: Scroll to absolute top on every route change
   useEffect(() => {
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    });
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [currentRoute]);
 
   // Render current screen
@@ -158,12 +158,12 @@ const MainLayout: React.FC = () => {
       <DesktopSidebar />
 
       {/* Main Content Area */}
-      <div className="flex-1 min-w-0 flex flex-col justify-start w-full overflow-x-hidden">
+      <main className="flex-1 min-w-0 flex flex-col justify-start w-full overflow-x-hidden pb-[80px] lg:pb-0">
         <div className="flex-1 w-full max-w-7xl mx-auto min-h-[100dvh] relative">
           {renderScreen()}
         </div>
         <BottomNav />
-      </div>
+      </main>
 
       {/* Floating Success / Notification Toast */}
       {toastMessage && (
@@ -174,7 +174,7 @@ const MainLayout: React.FC = () => {
       )}
 
       {/* Floating Quick Route Switcher for Reviewing / Grading */}
-      <div className="fixed bottom-3 right-4 z-50 hidden sm:flex items-center gap-1.5 p-1.5 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/80 dark:border-slate-700/80 text-xs select-none">
+      <div className="fixed bottom-3 right-4 z-50 hidden lg:flex items-center gap-1.5 p-1.5 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200/80 dark:border-slate-700/80 text-xs select-none">
           <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 px-1 uppercase tracking-wider">
             Quick Nav:
           </span>

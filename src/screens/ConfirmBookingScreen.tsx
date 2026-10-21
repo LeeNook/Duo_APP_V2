@@ -106,7 +106,7 @@ export const ConfirmBookingScreen: React.FC = () => {
         onBack={() => navigateToFacility(facility.id)}
       />
 
-      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-32 space-y-5">
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-56 sm:pb-60 lg:pb-32 space-y-5">
         {/* Step Indicator */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between text-xs font-semibold">
@@ -313,8 +313,8 @@ export const ConfirmBookingScreen: React.FC = () => {
       </main>
 
       {/* 5. Sticky Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 transition-colors">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2">
+      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <button
             onClick={handleConfirm}
             className="w-full py-4 px-6 rounded-2xl text-white font-bold text-base flex items-center justify-center gap-2 shadow-lg shadow-brand/25 transition-all hover:opacity-95 active:scale-[0.99] cursor-pointer"
@@ -322,14 +322,6 @@ export const ConfirmBookingScreen: React.FC = () => {
           >
             <span>{language === 'th' ? 'ยืนยันการจอง' : 'Confirm Booking'}</span>
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-          </button>
-
-          <button
-            onClick={() => navigateToFacility(facility.id)}
-            className="w-full py-2.5 text-center text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <Clock className="w-3.5 h-3.5" />
-            <span>{language === 'th' ? 'แก้ไขเวลา' : 'Change Time'}</span>
           </button>
         </div>
       </div>

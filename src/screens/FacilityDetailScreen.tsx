@@ -196,7 +196,7 @@ export const FacilityDetailScreen: React.FC = () => {
         onBack={() => navigateToCategory(facility.category)}
       />
 
-      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28 space-y-6">
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-56 sm:pb-60 lg:pb-32 space-y-6">
         {/* 1. Photo Carousel */}
         <section className="relative w-full rounded-3xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800">
           <div className="relative h-64 sm:h-80 w-full overflow-hidden bg-slate-900">
@@ -584,7 +584,7 @@ export const FacilityDetailScreen: React.FC = () => {
       </main>
 
       {/* 7. Sticky Bottom Confirmation Bar */}
-      <div className="fixed bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 transition-colors">
+      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2.5">
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-semibold">
