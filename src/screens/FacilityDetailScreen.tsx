@@ -189,7 +189,8 @@ export const FacilityDetailScreen: React.FC = () => {
   const displayRules = (language === 'th' ? facility.rulesTh : (facility.rulesEn || facility.rulesTh)) || [];
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-36 lg:pb-24">
+    <>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-36 lg:pb-24">
       <TopBar
         title={language === 'th' ? 'รายละเอียดอุปกรณ์' : 'Facility Detail'}
         showBack={true}
@@ -582,9 +583,10 @@ export const FacilityDetailScreen: React.FC = () => {
           </div>
         </section>
       </main>
+      </div>
 
-      {/* 7. Sticky Bottom Confirmation Bar */}
-      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
+      {/* 7. Sticky Bottom Confirmation Bar - direct child of component root */}
+      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2.5">
           <div className="flex items-center justify-between text-xs">
             <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-200 font-semibold">
@@ -618,6 +620,6 @@ export const FacilityDetailScreen: React.FC = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -21,6 +21,8 @@ const MainLayout: React.FC = () => {
     currentRoute,
     setCurrentRoute,
     language,
+    selectedCategoryId,
+    selectedFacilityId,
     setSelectedCategoryId,
     setSelectedFacilityId,
     navigateToSuccess,
@@ -113,7 +115,9 @@ const MainLayout: React.FC = () => {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-  }, [currentRoute]);
+    const rootEl = document.getElementById('root');
+    if (rootEl) rootEl.scrollTop = 0;
+  }, [currentRoute, selectedCategoryId, selectedFacilityId]);
 
   // Render current screen
   const renderScreen = () => {
@@ -158,12 +162,14 @@ const MainLayout: React.FC = () => {
       <DesktopSidebar />
 
       {/* Main Content Area */}
-      <main className="flex-1 min-w-0 flex flex-col justify-start w-full overflow-x-hidden pb-[80px] lg:pb-0">
+      <main className="flex-1 min-w-0 flex flex-col justify-start w-full pb-[80px] lg:pb-0">
         <div className="flex-1 w-full max-w-7xl mx-auto min-h-[100dvh] relative">
           {renderScreen()}
         </div>
-        <BottomNav />
       </main>
+
+      {/* Persistent Bottom Nav - rendered unconditionally, hidden only via lg:hidden */}
+      <BottomNav />
 
       {/* Floating Success / Notification Toast */}
       {toastMessage && (

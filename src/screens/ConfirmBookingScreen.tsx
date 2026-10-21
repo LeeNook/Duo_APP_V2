@@ -99,7 +99,8 @@ export const ConfirmBookingScreen: React.FC = () => {
   const displayStatus = language === 'th' ? facility.statusLabelTh : (facility.statusLabelEn || 'Available');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-40 lg:pb-28">
+    <>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pb-40 lg:pb-28">
       <TopBar
         title={language === 'th' ? 'แบบฟอร์มยืนยันการจอง' : 'Booking Confirmation'}
         showBack={true}
@@ -311,9 +312,10 @@ export const ConfirmBookingScreen: React.FC = () => {
           </div>
         </div>
       </main>
+      </div>
 
-      {/* 5. Sticky Bottom Action Bar */}
-      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
+      {/* 5. Sticky Bottom Action Bar - direct child of component root */}
+      <div className="fixed bottom-[70px] lg:bottom-0 left-0 lg:left-72 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 p-4 lg:pb-14 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] transition-colors">
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <button
             onClick={handleConfirm}
@@ -325,6 +327,6 @@ export const ConfirmBookingScreen: React.FC = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
